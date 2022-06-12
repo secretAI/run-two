@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "author": "SecretAI",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/secretAI/run-two.git"
+  },
   "scripts": {
     "dev": "ts-node src/main.ts",
     "test": "jest src/test"

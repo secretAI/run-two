@@ -1,4 +1,4 @@
-import Database from "../../index";
+import { Database } from "../../index";
 import { ICreateUserData, User } from "./interfaces";
 
 export class UserInstance {

@@ -1,26 +1,15 @@
-import { Pool, QueryResult } from "pg";
-import { getDotEnv } from "../utils/env";
-import { ApplicationError, HTTPStatus } from "../utils/etc";
+import Database from "../database/database";
+import { User } from "./models/users/interfaces";
+import { UserInstance } from "./models/users/instance";
+import { UserDto } from "./models/users/dto";
+import { TokenInstance } from "./models/token/instance";
+import { RefreshToken } from "./models/token/interfaces";
+import { Post } from "./models/posts/interfaces";
+import { PostInstance } from "./models/posts/instance";
 
-class Database {
-  private readonly pool: Pool;
-
-  constructor() {
-    this.pool = new Pool({
-      host: "localhost",
-      database: getDotEnv("db_name"),
-      user: getDotEnv("db_user"),
-      port: +getDotEnv("db_port")
-    });
-  }
-
-  public async createQuery(sql: string): Promise<QueryResult["rows"]> {
-    const result = await this.pool.query(sql);
-    if(!result)
-      throw new ApplicationError(HTTPStatus.BAD_REQUEST, "Database couldn't resolve the query");
-
-    return result.rows;
-  }
-}
-
-export default new Database();
+export { 
+  Database, 
+  User, UserInstance, UserDto,
+  TokenInstance, RefreshToken,
+  Post, PostInstance
+};

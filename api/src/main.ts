@@ -1,8 +1,7 @@
 import bodyParser from "body-parser";
-import express from "express";
-import { App } from "./app";
-import { AuthRouter } from "./router/auth";
-import { ContentRouter } from "./router/content";
+import { App } from "./app/index";
+import { AuthRouter } from "./router/auth/index";
+import { ContentRouter } from "./router/content/index";
 import { getDotEnv } from "./utils/env";
 
 const port = +getDotEnv("app_port");
@@ -12,7 +11,7 @@ const app = new App({
   baseUrl: "/api",
   middlewares: [
     bodyParser.urlencoded({ extended: true }),
-    express.json()
+    bodyParser.json()
   ],
   routers: [
     new AuthRouter("/auth"),

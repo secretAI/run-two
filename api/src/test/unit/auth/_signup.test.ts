@@ -1,11 +1,11 @@
-import { testAcc } from "..";
-import pg from "../../../database/index";
+import { testAcc } from "../utils";
+import { Database } from "../../../database/index";
 import { User } from "../../../database/models/users/interfaces";
 import { AuthService } from "../../../service/auth";
 
 describe("SignUp Demo", () => {
   beforeAll(async () => {
-    await pg.createQuery(`
+    await Database.createQuery(`
       DELETE FROM users
       WHERE email = '${testAcc.email}';
     `);
@@ -13,7 +13,7 @@ describe("SignUp Demo", () => {
   });
 
   afterAll(async () => {
-    await pg.createQuery(`
+    await Database.createQuery(`
       DELETE FROM users
       WHERE email = '${testAcc.email}';
     `);

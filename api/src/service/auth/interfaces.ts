@@ -1,9 +1,7 @@
-export interface ISignUpData {
+export interface IAuthData {
   email: string;
   password: string;
 }
-
-export interface ILoginData extends ISignUpData {}
 
 export type JwtTokenPair = {
   access: string;

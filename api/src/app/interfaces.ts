@@ -1,7 +1,7 @@
 export interface IAppConstructorConfig {
   port: number; 
-  middlewares: any[]; 
-  routers: any[]; 
+  middlewares: Middlewares; 
+  routers: Routers; 
   baseUrl: string
 }
 

@@ -1,15 +1,13 @@
-import { testAcc } from "..";
-import pg from "../../../database/index";
-import { TokenInstance } from "../../../database/models/token/instance";
-import { RefreshToken } from "../../../database/models/token/interfaces";
-import { UserInstance } from "../../../database/models/users/instance";
+import { testAcc } from "../utils";
+import { Database } from "../../../database/index";
+import { TokenInstance, RefreshToken, UserInstance} from "../../../database/index";
 import { AuthService } from "../../../service/auth";
 import { JwtTokenPair } from "../../../service/auth/interfaces";
 
 
 describe("Login Demo", () => {  
   async function removeTestData() {
-    await pg.createQuery(`
+    await Database.createQuery(`
       BEGIN;
 
       DELETE FROM users

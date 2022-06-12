@@ -1,4 +1,4 @@
-import Database from "../../index";
+import { Database } from "../../index";
 import { ISaveTokenData, RefreshToken } from "./interfaces";
 
 export class TokenInstance {
