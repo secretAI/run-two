@@ -20,7 +20,6 @@ class Database {
       throw new ApplicationError(HTTPStatus.BAD_REQUEST, "Database couldn't resolve the query");
 
     return result.rows;
-
   }
 }
 

@@ -1,5 +1,4 @@
-import { QueryResult } from "pg";
-import Database from "../../index"
+import Database from "../../index";
 import { ICreateUserData, User } from "./interfaces";
 
 export class UserInstance {
@@ -28,7 +27,7 @@ export class UserInstance {
     return user;
   }
 
-  static async getUserByEmail(email: string): Promise<User> {
+  static async getUserByEmail(email: string): Promise<User> {    
     const user: User = (await this.pool.createQuery(`
     SELECT *
     FROM users

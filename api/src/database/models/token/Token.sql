@@ -1,7 +1,8 @@
 CREATE TABLE tokens(
+  id uuid DEFAULT gen_random_uuid()
   user_email varchar(45) NOT NULL,
   token text NOT NULL,
-  PRIMARY KEY(user_email),
+  PRIMARY KEY(id),
   FOREIGN KEY(user_email) REFERENCES users(email)
     ON UPDATE CASCADE
     ON DELETE CASCADE,

@@ -10,3 +10,5 @@ export interface ICreateUserData {
   email: string;
   password: string;
 }
+
+export interface ILoginEventData extends ICreateUserData {};
