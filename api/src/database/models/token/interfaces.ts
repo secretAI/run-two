@@ -1,3 +1,5 @@
+import { User } from "../users/interfaces";
+
 export type RefreshToken = {
   id: string;
   user_email: string;
@@ -6,6 +8,6 @@ export type RefreshToken = {
 }
 
 export interface ISaveTokenData {
-  user_email: string;
+  user_email: User["email"];
   token: string;
 }
