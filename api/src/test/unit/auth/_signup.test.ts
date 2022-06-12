@@ -18,6 +18,5 @@ describe("SignUp Demo", () => {
   
     expect(user).toBeTruthy();
     expect(user.password).not.toBe(testAcc.password); /* Password should now be encrypted */
-    expect(user.activated).toBe(false);
   })
 });

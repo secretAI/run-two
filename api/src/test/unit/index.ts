@@ -10,6 +10,6 @@ export const http = new Axios({
 });
 
 export const testAcc = {
-  email: getDotEnv("test_acc"),
-  password: getDotEnv("test_pass")
+  email: getDotEnv("test_acc_email"),
+  password: getDotEnv("test_acc_pass")
 };

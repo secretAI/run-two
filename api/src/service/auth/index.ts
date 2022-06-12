@@ -6,6 +6,7 @@ import { User } from "../../database/models/users/interfaces";
 import { getDotEnv } from "../../utils/env";
 import { ApplicationError, HTTPStatus } from "../../utils/etc";
 import { ILoginData, ISignUpData, JwtTokenPair } from "./interfaces";
+import { TokenInstance } from "../../database/models/token/instance";
 
 
 export class AuthService {
@@ -44,6 +45,10 @@ export class AuthService {
         /* 1d. */
       })
     };
+    await TokenInstance.saveUserRefreshToken({
+      user_email: user.email,
+      token: tokens.refresh
+    });
 
     return tokens;
   }
