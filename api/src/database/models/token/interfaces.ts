@@ -1,4 +1,5 @@
 import { User } from "../users/interfaces";
+import { Moment } from "moment";
 
 export type RefreshToken = {
   id: string;
@@ -10,4 +11,5 @@ export type RefreshToken = {
 export interface ISaveTokenData {
   user_email: User["email"];
   token: string;
+  expires_at: string;
 }

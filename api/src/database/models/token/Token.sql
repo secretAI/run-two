@@ -2,7 +2,7 @@ CREATE TABLE tokens(
   id uuid DEFAULT gen_random_uuid(),
   user_email varchar(45) NOT NULL,
   token text NOT NULL,
-  expires_at timestamp 
+  expires_at timestamp NOT NULL,
   created_at timestamp DEFAULT now()::timestamp,
   PRIMARY KEY(id),
   FOREIGN KEY(user_email) REFERENCES users(email)

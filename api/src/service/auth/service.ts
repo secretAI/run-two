@@ -1,5 +1,6 @@
 import * as jwt from "jsonwebtoken";
 import * as bcrypt from "bcrypt";
+import moment from "moment";
 import { User, UserDto, UserInstance, TokenInstance } from "../../database/index";
 import { getDotEnv } from "../../utils/env";
 import { ApplicationError, HTTPStatus } from "../../utils/etc";
@@ -34,17 +35,19 @@ export class AuthService {
     const dto = new UserDto(user);
     const tokens: JwtTokenPair = {
       access: jwt.sign({id: dto.id} as jwt.JwtPayload, getDotEnv("jwt_secret_access"), {
-        expiresIn: 1000 * 60 * 60 * 2 
-        /* 2h. */
+        expiresIn: 1000 * 60 * 15
+        /* 15m. */
       }),
       refresh: jwt.sign({dto} as jwt.JwtPayload, getDotEnv("jwt_secret_refresh"), {
         expiresIn: 1000 * 60 * 60 * 24
         /* 1d. */
       })
     };
+    await TokenInstance.deleteToken(user.email);
     await TokenInstance.saveUserRefreshToken({
       user_email: user.email,
-      token: tokens.refresh
+      token: tokens.refresh,
+      expires_at: moment(new Date()).add(31, "hour").toISOString() /* Option to fix the timezone offset */
     });
 
     return tokens;

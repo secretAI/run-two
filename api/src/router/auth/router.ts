@@ -36,7 +36,7 @@ export class AuthRouter {
     const response: JwtTokenPair = await AuthService.loginIntoAccount(req.body as IAuthReq);
 
     res.status(HTTPStatus.SUCCESS)
-      .cookie("reToken", response as JwtTokenPair, {
+      .cookie("reToken", response.refresh as JwtTokenPair["refresh"], {
         httpOnly: true
       })
       .json(response);  
