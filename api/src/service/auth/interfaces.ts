@@ -7,3 +7,15 @@ export type JwtTokenPair = {
   access: string;
   refresh: string;
 }
+
+export interface IJwtPayload {
+  email?: string;
+  dto?: {
+    id: string;
+    email: string;
+    activated: boolean;
+    created_at: Date;
+  };
+  iat: number;
+  exp: number;
+}

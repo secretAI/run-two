@@ -30,6 +30,9 @@ export async function removeTestData() {
     DELETE FROM tokens
     WHERE user_email = '${testAcc.email}';
 
+    DELETE FROM posts
+    WHERE user_email = '${testAcc.email}';
+
     END;
   `);
 }

@@ -4,7 +4,7 @@ import moment from "moment";
 import { User, UserDto, UserInstance, TokenInstance } from "../../database/index";
 import { getDotEnv } from "../../utils/env";
 import { ApplicationError, HTTPStatus } from "../../utils/etc";
-import { IAuthData, JwtTokenPair } from "./interfaces";
+import { IAuthData, IJwtPayload, JwtTokenPair } from "./interfaces";
 
 
 export class AuthService {
@@ -34,30 +34,31 @@ export class AuthService {
       throw new ApplicationError(HTTPStatus.FORBIDDEN, "Password is incorrect");
     const dto = new UserDto(user);
     const tokens: JwtTokenPair = {
-      access: jwt.sign({id: dto.id} as jwt.JwtPayload, getDotEnv("jwt_secret_access"), {
+      access: jwt.sign({ dto: { email: dto.email } } as jwt.JwtPayload, getDotEnv("jwt_secret_access"), {
         expiresIn: 1000 * 60 * 15
         /* 15m. */
       }),
-      refresh: jwt.sign({dto} as jwt.JwtPayload, getDotEnv("jwt_secret_refresh"), {
+      refresh: jwt.sign({ dto } as jwt.JwtPayload, getDotEnv("jwt_secret_refresh"), {
         expiresIn: 1000 * 60 * 60 * 24
         /* 1d. */
       })
     };
+    const validation: IJwtPayload = AuthService.validateToken(tokens.refresh, getDotEnv("jwt_secret_refresh"));
     await TokenInstance.deleteToken(user.email);
     await TokenInstance.saveUserRefreshToken({
       user_email: user.email,
       token: tokens.refresh,
-      expires_at: moment(new Date()).add(31, "hour").toISOString() /* Todo: Option to fix the timezone offset */
+      expires_at: new Date(validation.exp).toISOString()
     });
 
     return tokens;
   }
 
-  public static validateToken(token: string, secret: string) {
-    const validation = jwt.verify(token, secret);
+  public static validateToken(token: string, secret: string): IJwtPayload {
+    const validation: IJwtPayload = jwt.verify(token, secret) as IJwtPayload;
     if(!validation)
       throw new ApplicationError(HTTPStatus.UNAUTHORIZED, "Invalid token");
-    
+    console.log("----------", validation);
     return validation;
   }
 }

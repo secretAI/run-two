@@ -6,9 +6,13 @@ export interface IAuthedReq extends Request {
   user: JwtPayload|string;
 }
 
-export interface IJwtPayload extends UserDto {
-  id: string;
-  email: string;
-  activated: boolean;
-  created_at: Date;
+export interface IJwtPayload {
+  dto: {
+    id: string;
+    email: string;
+    activated: boolean;
+    created_at: Date;
+  };
+  iat: number;
+  exp: number;
 }
