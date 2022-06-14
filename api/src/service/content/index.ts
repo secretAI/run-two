@@ -1,3 +1,4 @@
 import { ContentService } from "./service";
+import { ICreatePostData } from "./interfaces";
 
-export { ContentService };
+export { ContentService, ICreatePostData };

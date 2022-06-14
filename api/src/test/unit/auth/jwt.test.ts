@@ -1,7 +1,5 @@
 import { UserDto } from "../../../database/index";
-import { JwtTokenPair } from "../../../router/auth/interfaces";
-import { AuthService } from "../../../service/auth/index";
-import { IJwtPayload } from "../../../service/auth/interfaces";
+import { AuthService, IJwtPayload, JwtTokenPair } from "../../../service/auth/index";
 import { getDotEnv } from "../../../utils/env";
 import { ApplicationError, HTTPStatus } from "../../../utils/etc";
 import { removeTestData, testAcc } from "../utils";

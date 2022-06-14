@@ -1,3 +1,10 @@
 import { AuthRouter } from "./router";
+import {
+  IAuthReq,
+  JwtTokenPair
+} from "./interfaces";
 
-export { AuthRouter };
+export { 
+  AuthRouter, IAuthReq,
+  JwtTokenPair
+};

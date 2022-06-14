@@ -1,3 +1,4 @@
 import { ContentRouter } from "./router";
+import { ICreatePostReq } from "./interfaces";
 
-export { ContentRouter };
+export { ContentRouter, ICreatePostReq };

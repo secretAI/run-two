@@ -1,5 +1,5 @@
 import express, { Application } from "express";
-import { IAppConstructorConfig, Middlewares, Routers } from "./interfaces";
+import { IAppConstructorConfig, Middlewares, Routers } from "./index";
 
 
 export class App {
