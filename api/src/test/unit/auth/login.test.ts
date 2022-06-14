@@ -1,4 +1,4 @@
-import { testAcc } from "../utils";
+import { removeTestData, testAcc } from "../utils";
 import { Database } from "../../../database/index";
 import { TokenInstance, RefreshToken, UserInstance} from "../../../database/index";
 import { AuthService } from "../../../service/auth";
@@ -6,28 +6,14 @@ import { JwtTokenPair } from "../../../service/auth/interfaces";
 
 
 describe("Login Demo", () => {  
-  async function removeTestData() {
-    await Database.createQuery(`
-      BEGIN;
-
-      DELETE FROM users
-      WHERE email = '${testAcc.email}';
-
-      DELETE FROM tokens
-      WHERE user_email = '${testAcc.email}';
-
-      END;
-    `);
-  }
-
   beforeAll(async () => {
-    removeTestData();
+    await removeTestData();
     await AuthService.createNewAccount(testAcc);
     console.info("[Test:Login] BeforeAll hook - success");
   });
 
   afterAll(async () => {
-    removeTestData();    
+    await removeTestData();    
     console.info("[Test:Login] AfterAll hook - success");
   });
 

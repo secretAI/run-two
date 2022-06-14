@@ -1,22 +1,15 @@
-import { testAcc } from "../utils";
-import { Database } from "../../../database/index";
+import { removeTestData, testAcc } from "../utils";
 import { User } from "../../../database/models/users/interfaces";
 import { AuthService } from "../../../service/auth";
 
 describe("SignUp Demo", () => {
   beforeAll(async () => {
-    await Database.createQuery(`
-      DELETE FROM users
-      WHERE email = '${testAcc.email}';
-    `);
+    await removeTestData();
     console.info("[Test:Signup] BeforeAll hook - success");
   });
 
   afterAll(async () => {
-    await Database.createQuery(`
-      DELETE FROM users
-      WHERE email = '${testAcc.email}';
-    `);
+    await removeTestData();
     console.info("[Test:Signup] AfterAll hook - success");
   });
 

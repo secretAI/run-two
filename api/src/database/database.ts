@@ -12,6 +12,8 @@ class Database {
       user: getDotEnv("db_user"),
       port: +getDotEnv("db_port")
     });
+    console.log("PostgreSQL is running..");
+    
   }
 
   public async createQuery(sql: string): Promise<QueryResult["rows"]> {

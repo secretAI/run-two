@@ -47,9 +47,17 @@ export class AuthService {
     await TokenInstance.saveUserRefreshToken({
       user_email: user.email,
       token: tokens.refresh,
-      expires_at: moment(new Date()).add(31, "hour").toISOString() /* Option to fix the timezone offset */
+      expires_at: moment(new Date()).add(31, "hour").toISOString() /* Todo: Option to fix the timezone offset */
     });
 
     return tokens;
+  }
+
+  public static validateToken(token: string, secret: string) {
+    const validation = jwt.verify(token, secret);
+    if(!validation)
+      throw new ApplicationError(HTTPStatus.UNAUTHORIZED, "Invalid token");
+    
+    return validation;
   }
 }

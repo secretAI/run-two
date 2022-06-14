@@ -14,7 +14,7 @@ export class ContentService {
   public static async createNewPost(postData: ICreatePostData): Promise<Post> {
     const author: User = await UserInstance.getUserByEmail(postData.user_email);
     if(!author)
-      throw new ApplicationError(HTTPStatus.NOT_FOUND, `User ${postData.user_email} not found..`);
+      throw new ApplicationError(HTTPStatus.NOT_FOUND, `User ${postData.user_email} not found`);
     const post: Post = await PostInstance.createNewPost(postData);
 
     return post;
