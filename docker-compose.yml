@@ -1,0 +1,12 @@
+version: '3.8'
+
+services: 
+  postgres:
+    container_name: 'postgres'
+    build: 
+      context: ./api # folder
+      dockerfile: ./Dockerfile # non-absolute path
+    ports:
+      - '5050:5050'
+    volumes:
+      - ./.database/postgres/data:/data/

@@ -1,3 +1,4 @@
 import { authMiddleware } from "./middleware";
+import { IJwtPayload } from "./interfaces";
 
-export { authMiddleware };
+export { authMiddleware, IJwtPayload };

@@ -10,7 +10,8 @@ class Database {
       host: "localhost",
       database: getDotEnv("db_name"),
       user: getDotEnv("db_user"),
-      port: +getDotEnv("db_port")
+      port: +getDotEnv("db_port"),
+      password: getDotEnv("db_pass")
     });
     console.log("PostgreSQL is running..");
     
