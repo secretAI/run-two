@@ -1,13 +1,6 @@
-import { http, removeTestData, testAcc, testData } from "..";
-import { Database, Post, PostInstance, TokenInstance, UserDto } from "../../../database/index";
-import { ContentService } from "../../../service/content/index";
-import { AuthService } from "../../../service/auth/index";
-import { JwtTokenPair } from "../../../router/auth/interfaces";
-import { getDotEnv } from "../../../utils/env";
-import { ICreatePostData } from "../../../service/content/interfaces";
-import { AxiosResponse } from "axios";
-import { JwtPayload } from "jsonwebtoken";
-import { ApplicationError, HTTPStatus } from "../../../utils/etc";
+import { removeTestData, testAcc, testData } from "..";
+import { Post, PostInstance} from "../../../database/";
+import { AuthService } from "../../../service/auth/";
 
 describe("Post service Demo", () => {
   beforeAll(async () => {

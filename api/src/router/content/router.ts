@@ -1,9 +1,9 @@
 import { Request, Response, Router } from "express";
 import { HTTPStatus } from "../../utils/etc";
-import { PostInstance, Post } from "../../database/index";
-import { ContentService } from "../../service/content/index";
+import { PostInstance, Post } from "../../database/";
+import { ContentService } from "../../service/content/";
 import { ICreatePostReq } from "./interfaces";
-import { authMiddleware } from "../../middleware/auth/index";
+import { authMiddleware } from "../../middleware/auth/";
 
 export class ContentRouter {
   private readonly router: Router;

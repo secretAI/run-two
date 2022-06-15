@@ -1,4 +1,4 @@
-import { PostInstance, UserInstance, Post } from "../../database/index";
+import { PostInstance, UserInstance, Post } from "../../database/";
 import { User } from "../../database/models/users/interfaces";
 import { ApplicationError, HTTPStatus } from "../../utils/etc";
 import { ICreatePostData } from "./interfaces";

@@ -1,7 +1,7 @@
 import bodyParser from "body-parser";
-import { App } from "./app/index";
-import { AuthRouter } from "./router/auth/index";
-import { ContentRouter } from "./router/content/index";
+import { App } from "./app/";
+import { AuthRouter } from "./router/auth/";
+import { ContentRouter } from "./router/content/";
 import { getDotEnv } from "./utils/env";
 import cookieParser from "cookie-parser";
 

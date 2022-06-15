@@ -2,10 +2,10 @@ import { ApplicationError, HTTPStatus } from "../../utils/etc";
 import * as jwt from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
 import { getDotEnv } from "../../utils/env";
-import { AuthService } from "../../service/auth/index";
+import { AuthService } from "../../service/auth/";
 import { JwtTokenPair } from "../../router/auth/interfaces";
 import { RefreshToken, TokenInstance } from "../../database";
-import { testAcc } from "../../test/unit";
+import { testAcc } from "../../test/unit/";
 
 export async function authMiddleware(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {

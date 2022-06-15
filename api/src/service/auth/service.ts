@@ -1,7 +1,6 @@
 import * as jwt from "jsonwebtoken";
 import * as bcrypt from "bcrypt";
-import moment from "moment";
-import { User, UserDto, UserInstance, TokenInstance } from "../../database/index";
+import { User, UserDto, UserInstance, TokenInstance } from "../../database/";
 import { getDotEnv } from "../../utils/env";
 import { ApplicationError, HTTPStatus } from "../../utils/etc";
 import { IAuthData, IJwtPayload, JwtTokenPair } from "./interfaces";

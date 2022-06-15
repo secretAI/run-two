@@ -1,14 +1,5 @@
-import axios, { Axios } from "axios";
-import { Database } from "../../database/index";
+import { Database } from "../../database/";
 import { getDotEnv } from "../../utils/env";
-
-const port = getDotEnv("app_port");
-export const http = axios.create({
-  baseURL: `http://localhost:${port}/api`,
-  headers: {
-    "Content-type": "application/json"
-  }
-});
 
 export const testAcc = {
   email: getDotEnv("test_acc_email"),

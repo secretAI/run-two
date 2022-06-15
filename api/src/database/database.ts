@@ -7,14 +7,13 @@ class Database {
 
   constructor() {
     this.pool = new Pool({
-      host: "localhost",
-      database: getDotEnv("db_name"),
-      user: getDotEnv("db_user"),
-      port: +getDotEnv("db_port"),
-      password: getDotEnv("db_pass")
+      host: "postgres", /* Docker container name */
+      database: getDotEnv("postgres_db"),
+      user: getDotEnv("postgres_user"),
+      port: +getDotEnv("postgres_port"),
+      password: getDotEnv("postgres_pass")
     });
     console.log("PostgreSQL is running..");
-    
   }
 
   public async createQuery(sql: string): Promise<QueryResult["rows"]> {

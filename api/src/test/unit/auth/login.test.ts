@@ -1,6 +1,5 @@
 import { removeTestData, testAcc } from "..";
-import { Database } from "../../../database/index";
-import { TokenInstance, RefreshToken, UserInstance} from "../../../database/index";
+import { TokenInstance, RefreshToken, UserInstance} from "../../../database/";
 import { AuthService } from "../../../service/auth";
 import { JwtTokenPair } from "../../../service/auth/interfaces";
 

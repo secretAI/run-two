@@ -2,4 +2,4 @@
 include ./api/docker.env
 
 run:
-	docker-compose up
+	docker-compose up --force-recreate

@@ -1,8 +1,8 @@
 import { Request, Response, Router } from "express";
 import { HTTPStatus } from "../../utils/etc";
 import { IAuthReq, JwtTokenPair } from "./interfaces";
-import { User } from "../../database/index";
-import { AuthService } from "../../service/auth/index";
+import { User } from "../../database/";
+import { AuthService } from "../../service/auth/";
 
 export class AuthRouter {
   private readonly router: Router;
