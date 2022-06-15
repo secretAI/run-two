@@ -3,10 +3,22 @@ version: '3.8'
 services: 
   postgres:
     container_name: 'postgres'
+    env_file: './api/docker.env'
     build: 
-      context: ./api # folder
-      dockerfile: ./Dockerfile # non-absolute path
+      context: ./api
+      dockerfile: ./Dockerfile.postgres 
     ports:
       - '5050:5050'
     volumes:
       - ./.database/postgres/data:/data/
+  api: 
+    container_name: 'api'
+    env_file: './api/docker.env'
+    build: 
+      context: ./api
+      dockerfile: ./Dockerfile.api
+    ports:
+      - '3040:3040'
+    depends_on:
+      - postgres
+    # restart: always 

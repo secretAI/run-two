@@ -1,4 +1,4 @@
-import { removeTestData, testAcc } from "../utils";
+import { removeTestData, testAcc } from "..";
 import { User } from "../../../database/models/users/interfaces";
 import { AuthService } from "../../../service/auth";
 

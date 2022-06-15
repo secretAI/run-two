@@ -2,7 +2,7 @@ import { UserDto } from "../../../database/index";
 import { AuthService, IJwtPayload, JwtTokenPair } from "../../../service/auth/index";
 import { getDotEnv } from "../../../utils/env";
 import { ApplicationError, HTTPStatus } from "../../../utils/etc";
-import { removeTestData, testAcc } from "../utils";
+import { removeTestData, testAcc } from "..";
 
 describe("Jwt test", () => {
   beforeAll(async () => {

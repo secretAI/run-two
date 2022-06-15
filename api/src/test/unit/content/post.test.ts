@@ -1,4 +1,4 @@
-import { http, removeTestData, testAcc, testData } from "../utils";
+import { http, removeTestData, testAcc, testData } from "..";
 import { Database, Post, PostInstance, TokenInstance, UserDto } from "../../../database/index";
 import { ContentService } from "../../../service/content/index";
 import { AuthService } from "../../../service/auth/index";

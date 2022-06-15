@@ -1,6 +1,8 @@
 */node_modules/
 */dist/
 */*.env
+*.env
 */package-lock.json
 .DS_Store
 .database
+.vscode
