@@ -2,12 +2,7 @@ FROM postgres:latest
 
 WORKDIR /usr/src/database
 
-COPY knexfile.js docker.env ./
-COPY src/database/migrations ./migrations
-RUN apt-get update
-RUN yes | apt-get install npm
-RUN npm i knex pg dotenv --save
+COPY src/database/migrations/dump.sql /docker-entrypoint-initdb.d/
 
 EXPOSE 5432
 # run migrations
-CMD npx knex migrate:latest --env docker
