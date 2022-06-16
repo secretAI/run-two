@@ -2,6 +2,7 @@ FROM postgres:latest
 
 WORKDIR /usr/src/database
 
+COPY src/database/migrations/backup/latest.sql /backup
 COPY src/database/migrations/dump.sql /docker-entrypoint-initdb.d/
 
 EXPOSE 5432

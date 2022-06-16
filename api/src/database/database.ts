@@ -7,7 +7,7 @@ class Database {
 
   constructor() {
     this.pool = new Pool({
-      host: "postgres", /* Docker container name */
+      host: "localhost",
       database: getDotEnv("postgres_db"),
       user: getDotEnv("postgres_user"),
       port: +getDotEnv("postgres_port"),
