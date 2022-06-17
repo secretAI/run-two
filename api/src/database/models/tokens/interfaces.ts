@@ -1,11 +1,11 @@
 import { User } from "../users/interfaces";
-import { Moment } from "moment";
 
 export type RefreshToken = {
   id: string;
   user_email: string;
   token: string;
   created_at: Date;
+  expires_at: Date;
 }
 
 export interface ISaveTokenData {

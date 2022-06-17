@@ -9,6 +9,7 @@ export type User = {
 export interface ICreateUserData {
   email: string;
   password: string;
+  aid: string;
 }
 
 export interface ILoginEventData extends ICreateUserData {};

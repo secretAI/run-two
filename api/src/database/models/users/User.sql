@@ -4,6 +4,7 @@ CREATE TABLE users(
   password text NOT NULL,
   activated boolean DEFAULT false,
   created_at timestamp DEFAULT now()::timestamp,
+  aid uuid,
   PRIMARY KEY(id),
   UNIQUE(email)
 );

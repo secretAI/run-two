@@ -8,12 +8,13 @@ SET row_security = off;
 SET client_encoding = "UTF8";
 SET datestyle TO "ISO, DMY";
 
-CREATE TABLE IF NOT EXISTS users(
+CREATE TABLE users(
   id uuid DEFAULT gen_random_uuid(),
   email varchar(45) NOT NULL,
   password text NOT NULL,
   activated boolean DEFAULT false,
   created_at timestamp DEFAULT now()::timestamp,
+  aid uuid,
   PRIMARY KEY(id),
   UNIQUE(email)
 );

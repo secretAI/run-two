@@ -4,7 +4,7 @@ import { ISaveTokenData, RefreshToken } from "./interfaces";
 export class TokenInstance {
   private static readonly pool = Database;
 
-  static async deleteToken(email: string): Promise<RefreshToken> {
+  static async deleteTokenByEmail(email: string): Promise<RefreshToken> {
     const deleted = (await this.pool.createQuery(`
       DELETE FROM tokens
       WHERE user_email = '${email}'
