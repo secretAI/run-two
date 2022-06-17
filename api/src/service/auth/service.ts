@@ -57,7 +57,6 @@ export class AuthService {
     const validation: IJwtPayload = jwt.verify(token, secret) as IJwtPayload;
     if(!validation)
       throw new ApplicationError(HTTPStatus.UNAUTHORIZED, "Invalid token");
-    console.log("----------", validation);
     return validation;
   }
 }

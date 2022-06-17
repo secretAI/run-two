@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "ts-node src/main.ts",
     "test": "jest src/test",
-    "start": "tsc && node dist/main.js"
+    "start": "tsc && node dist/main.js",
+    "db:migrate": "pg_dump demo > src/database/migrations/migration.sql"
   },
   "repository": {
     "type": "git",

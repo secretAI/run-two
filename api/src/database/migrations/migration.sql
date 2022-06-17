@@ -1,11 +1,11 @@
-BEGIN; 
+BEGIN;
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
 SET check_function_bodies = false;
 SET row_security = off;
-SET client_encoding = 'UTF8';
+SET client_encoding = "UTF8";
 SET datestyle TO "ISO, DMY";
 
 CREATE TABLE IF NOT EXISTS users(

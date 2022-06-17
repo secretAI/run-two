@@ -11,7 +11,7 @@ class Database {
       database: getDotEnv("postgres_db"),
       user: getDotEnv("postgres_user"),
       port: +getDotEnv("postgres_port"),
-      password: getDotEnv("postgres_pass")
+      password: getDotEnv("postgres_password")
     });
     console.log("PostgreSQL is running..");
   }
