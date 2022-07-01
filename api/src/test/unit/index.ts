@@ -8,17 +8,7 @@ export const testAcc = {
 
 export async function removeTestData() {
   await Database.createQuery(`
-    BEGIN;
-
     DELETE FROM users
     WHERE email = '${testAcc.email}';
-
-    DELETE FROM tokens
-    WHERE user_email = '${testAcc.email}';
-
-    DELETE FROM posts
-    WHERE user_email = '${testAcc.email}';
-
-    END;
-  `);
+  `); /* Update and Delete are cascade for both Posts and Tokens tables */
 }

@@ -1,6 +1,7 @@
 BEGIN;
 
 CREATE DATABASE demo IF NOT EXISTS;
+\c demo;
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;

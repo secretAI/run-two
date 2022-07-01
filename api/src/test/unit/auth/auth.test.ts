@@ -4,7 +4,7 @@ import { User } from "../../../database/models/users/interfaces";
 import { AuthService, IJwtPayload, JwtTokenPair } from "../../../service/auth";
 import { getDotEnv } from "../../../utils/env";
 
-describe("Auth Demo", () => {
+describe("Auth Test", () => {
   afterAll(async () => {
     await removeTestData();
     await Database.closeConnection();
