@@ -19,7 +19,7 @@ export async function authMiddleware(req: Request, res: Response, next: NextFunc
         
         req.app.locals.accToken = validation;
       case false: 
-        const refreshToken: JwtTokenPair["refresh"] = await TokenInstance.getRefreshTokenByEmail(testAcc.email) || req.cookies["reToken"];
+        const refreshToken: JwtTokenPair["refresh"] = req.cookies["reToken"];
         const _validation: string|jwt.JwtPayload = AuthService.validateToken(refreshToken, getDotEnv("jwt_secret_refresh"));
         if(!_validation) 
           console.error("Refresh token is not validated");

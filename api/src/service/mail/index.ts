@@ -1,7 +1,9 @@
 import { MailService } from "./service";
-import { ISendMailData, IHtmlStyles } from "./interfaces";
+import { SMTPModule } from "./smtp";
+import { ISendMailData, IHtmlStyles, ISentMail } from "./interfaces";
 
 export { 
-  MailService, ISendMailData, 
-  IHtmlStyles 
+  MailService, ISendMailData, ISentMail,
+  IHtmlStyles, 
+  SMTPModule
 };

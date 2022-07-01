@@ -10,7 +10,7 @@ import { App } from "../../app";
 
 export class AuthService {
   static async createNewAccount(userData: IAuthData): Promise<User> {
-    const isTaken = await UserInstance.getUserByEmail(userData.email);
+    const isTaken: User|null = await UserInstance.getUserByEmail(userData.email);
     if(isTaken)
       throw new ApplicationError(HTTPStatus.FORBIDDEN, `Email ${userData.email} is taken..`);
     const _password = bcrypt.hashSync(userData.password, +getDotEnv("salt_rnds"));
@@ -18,12 +18,12 @@ export class AuthService {
     const mailer = new MailService();
     await mailer.sendActivationMail({
       to: userData.email,
-      code: aid
+      aid
     });
     const user: User = await UserInstance.createUser({
       email: userData.email,
       password: _password,
-      aid: aid,
+      aid,
     });  
     
     return user;
@@ -54,10 +54,10 @@ export class AuthService {
       })
     };
     const validation: IJwtPayload = AuthService.validateToken(tokens.refresh, getDotEnv("jwt_secret_refresh"));
-    await TokenInstance.deleteTokenByEmail(user.email);
     await TokenInstance.saveUserRefreshToken({
       user_email: user.email,
       token: tokens.refresh,
+      /* ToDo: fix expires at Value */
       expires_at: new Date(validation.exp).toISOString()
     });
 

@@ -1,6 +1,6 @@
 import { Transporter, createTransport } from "nodemailer";
 import { getDotEnv } from "../../utils/env";
-import { IHtmlStyles, ISendMailData } from "./";
+import { IHtmlStyles, ISendMailData, ISentMail} from "./";
 import { SMTPModule } from "./smtp";
 
 export class MailService {
@@ -8,7 +8,7 @@ export class MailService {
 
   constructor() {
     this.transporter = createTransport({
-      host: getDotEnv("smtp_host"),
+      host: "localhost",
       port: +getDotEnv("smtp_port"),
       secure: true,
       service: "gmail",
@@ -22,16 +22,17 @@ export class MailService {
     });
   }
 
-  public async sendActivationMail(emailData: ISendMailData) {
-    const mail = this.transporter.sendMail({
+  public async sendActivationMail(emailData: ISendMailData): Promise<ISentMail> {
+    const styles: IHtmlStyles = this.generateHtmlStyles();
+    const mail: ISentMail = await this.transporter.sendMail({
       from: getDotEnv("smtp_address"),
       to: emailData.to,
       subject: "RUN-2 Account Activation",
       html: 
       `
-        <div style="${this.generateHtmlStyle().root}">
-          <button style="${this.generateHtmlStyle().btn}">
-            <a href="${this.createRedirectURL(emailData.code)}" target="_blank" style="${this.generateHtmlStyle().link}">
+        <div style="${styles.root}">
+          <button style="${styles.btn}">
+            <a href="${this.createRedirectURL(emailData.aid)}" target="_blank" style="${styles.link}">
               Activate
             </a>
           </button>
@@ -42,7 +43,7 @@ export class MailService {
     return mail;
   }
 
-  private generateHtmlStyle(): IHtmlStyles {
+  private generateHtmlStyles(): IHtmlStyles {
     return {
       root: `
         width: 100%;
@@ -77,7 +78,7 @@ export class MailService {
     }
   }
 
-  private createRedirectURL(code: ISendMailData["code"]): string {
+  private createRedirectURL(code: ISendMailData["aid"]): string {
     /* ToDo: Modify port to client's for production */ 
     return `http://localhost:${getDotEnv("app_port")}/api/auth/activate/${code}`;
   }

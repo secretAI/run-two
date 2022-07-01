@@ -1,6 +1,5 @@
 import express, { Application } from "express";
-import { SMTPServer } from "smtp-server";
-import { SMTPModule } from "../service/mail/smtp";
+import { SMTPModule } from "../service/mail/";
 import { IAppConstructorConfig, Middlewares, Routers } from "./interfaces";
 
 export class App {
@@ -32,7 +31,7 @@ export class App {
 
   public start() {
     this.app.listen(this.port, () => {
-      console.log(`App is running..\nhttp://localhost:${this.port}${this.baseUrl}`);
+      console.log(`[**] App is running..\nhttp://localhost:${this.port}${this.baseUrl}`);
     });
   }
 }

@@ -3,17 +3,14 @@ import { Database, Post, PostInstance} from "../../../database/";
 import { AuthService } from "../../../service/auth/";
 
 describe("Post service Demo", () => {
-  beforeAll(async () => {
-    await removeTestData();
-    await AuthService.createNewAccount(testAcc);
-  });
-
   afterAll(async () => {
     await removeTestData();
     await Database.closeConnection();
+    console.info("[Test:Posts] AfterAll hook - success");
   })
 
   it("Should create a new post by existing user", async () => {
+    await AuthService.createNewAccount(testAcc);
     const post: Post = await PostInstance.createNewPost({
       user_email: testAcc.email,
       title: "title",
@@ -24,5 +21,4 @@ describe("Post service Demo", () => {
     expect(post.user_email).toBe(testAcc.email);
     expect(post.media).toBeNull();
   });
-
 })

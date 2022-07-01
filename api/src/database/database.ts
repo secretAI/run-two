@@ -13,7 +13,7 @@ class Database {
       port: +getDotEnv("postgres_port"),
       password: getDotEnv("postgres_password")
     });
-    console.log("PostgreSQL is running..");
+    console.log("[*] PostgreSQL is running..");
   }
 
   public async createQuery(sql: string): Promise<QueryResult["rows"]> {
