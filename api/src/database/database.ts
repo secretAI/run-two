@@ -23,6 +23,10 @@ class Database {
 
     return result.rows;
   }
+
+  public async closeConnection(): Promise<void> {
+    await this.pool.end()
+  }
 }
 
 export default new Database();

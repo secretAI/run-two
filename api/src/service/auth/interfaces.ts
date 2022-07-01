@@ -19,8 +19,3 @@ export interface IJwtPayload {
   iat: number;
   exp: number;
 }
-
-export interface IActivateAccData {
-  email: string;
-  code: string;
-}

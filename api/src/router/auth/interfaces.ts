@@ -9,8 +9,3 @@ export type JwtTokenPair = {
   access: string;
   refresh: string;
 }
-
-export interface IActivateAccReq extends Request {
-  email: string;
-  code: string;
-}

@@ -6,7 +6,7 @@ export class UserInstance {
 
   static async getAllUsers(): Promise<User[]> {
     const users: User[] = await this.pool.createQuery(`
-      SELECT email, activated, created_at 
+      SELECT id, email, activated, created_at 
       FROM users
       ORDER BY created_at DESC;
     `);
@@ -29,10 +29,10 @@ export class UserInstance {
 
   static async getUserByEmail(email: string): Promise<User> {    
     const user: User = (await this.pool.createQuery(`
-    SELECT *
-    FROM users
-    WHERE email = '${email}';
-  `))[0];
+      SELECT *
+      FROM users
+      WHERE email = '${email}';
+    `))[0];
 
     return user;
   }

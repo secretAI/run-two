@@ -1,16 +1,19 @@
 import express, { Application } from "express";
+import { SMTPServer } from "smtp-server";
+import { SMTPModule } from "../service/mail/smtp";
 import { IAppConstructorConfig, Middlewares, Routers } from "./interfaces";
-
 
 export class App {
   private readonly app: Application;
   private readonly port: number;
   private readonly baseUrl: string;
+  private readonly smtpModule: SMTPModule;
 
   constructor(config: IAppConstructorConfig) {
     this.app = express();
     this.port = config.port;
     this.baseUrl = config.baseUrl;
+    this.smtpModule = new SMTPModule();
     this.middleWares(config.middlewares);
     this.routes(config.routers);
   }

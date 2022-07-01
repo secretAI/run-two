@@ -1,10 +1,10 @@
-import { ApplicationError, HTTPStatus } from "../../utils/etc";
 import * as jwt from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
+import { ApplicationError, HTTPStatus } from "../../utils/etc";
 import { getDotEnv } from "../../utils/env";
 import { AuthService } from "../../service/auth/";
-import { JwtTokenPair } from "../../router/auth/interfaces";
-import { RefreshToken, TokenInstance } from "../../database";
+import { JwtTokenPair } from "../../router/auth/";
+import { TokenInstance } from "../../database";
 import { testAcc } from "../../test/unit/";
 
 export async function authMiddleware(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -19,10 +19,10 @@ export async function authMiddleware(req: Request, res: Response, next: NextFunc
         
         req.app.locals.accToken = validation;
       case false: 
-        const refreshToken: string = await TokenInstance.getRefreshTokenByEmail(testAcc.email) || req.cookies["reToken"];
+        const refreshToken: JwtTokenPair["refresh"] = await TokenInstance.getRefreshTokenByEmail(testAcc.email) || req.cookies["reToken"];
         const _validation: string|jwt.JwtPayload = AuthService.validateToken(refreshToken, getDotEnv("jwt_secret_refresh"));
         if(!_validation) 
-          console.log("Refresh token is not validated");
+          console.error("Refresh token is not validated");
         
         req.app.locals.reToken= _validation;
     } 

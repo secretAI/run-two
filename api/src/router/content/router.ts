@@ -16,9 +16,8 @@ export class ContentRouter {
   }
 
   private initRoutes(): void {  
-    this.router.use(authMiddleware);
-    this.router.get(this.baseUrl, this.getAllPosts);
-    this.router.post(`${this.baseUrl}/new`, this.createNewPost);
+    this.router.get(this.baseUrl, authMiddleware, this.getAllPosts);
+    this.router.post(`${this.baseUrl}/new`, authMiddleware, this.createNewPost);
   }
 
   private async getAllPosts(req: Request, res: Response): Promise<void> {

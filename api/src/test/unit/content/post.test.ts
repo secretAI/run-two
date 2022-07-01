@@ -1,22 +1,23 @@
-import { removeTestData, testAcc, testData } from "..";
-import { Post, PostInstance} from "../../../database/";
+import { removeTestData, testAcc } from "..";
+import { Database, Post, PostInstance} from "../../../database/";
 import { AuthService } from "../../../service/auth/";
 
 describe("Post service Demo", () => {
   beforeAll(async () => {
-    removeTestData();
+    await removeTestData();
     await AuthService.createNewAccount(testAcc);
   });
 
   afterAll(async () => {
-    removeTestData();
+    await removeTestData();
+    await Database.closeConnection();
   })
 
   it("Should create a new post by existing user", async () => {
     const post: Post = await PostInstance.createNewPost({
       user_email: testAcc.email,
-      title: testData.title,
-      body: testData.body
+      title: "title",
+      body: "body"
     });
 
     expect(post).toBeTruthy();

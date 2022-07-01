@@ -7,3 +7,4 @@
 .database
 .vscode
 */src/database/_migrations
+server.*

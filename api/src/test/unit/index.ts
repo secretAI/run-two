@@ -6,11 +6,6 @@ export const testAcc = {
   password: getDotEnv("test_acc_pass")
 };
 
-export const testData = {
-  title: "Hola",
-  body: "?",
-}
-
 export async function removeTestData() {
   await Database.createQuery(`
     BEGIN;

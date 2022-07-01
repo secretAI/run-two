@@ -4,9 +4,8 @@ import * as uuid from "uuid";
 import { User, UserDto, UserInstance, TokenInstance, Database } from "../../database/";
 import { getDotEnv } from "../../utils/env";
 import { ApplicationError, HTTPStatus } from "../../utils/etc";
-import { IActivateAccData, IAuthData, IJwtPayload, JwtTokenPair } from "./interfaces";
+import { IAuthData, IJwtPayload, JwtTokenPair } from "./interfaces";
 import { MailService } from "../mail/";
-
 
 export class AuthService {
   static async createNewAccount(userData: IAuthData): Promise<User> {
@@ -14,8 +13,8 @@ export class AuthService {
     if(isTaken)
       throw new ApplicationError(HTTPStatus.FORBIDDEN, `Email ${userData.email} is taken..`);
     const _password = bcrypt.hashSync(userData.password, +getDotEnv("salt_rnds"));
-    const mailer = new MailService();
     const aid: string = uuid.v4();
+    const mailer = new MailService();
     await mailer.sendActivationMail({
       to: userData.email,
       code: aid
@@ -23,8 +22,9 @@ export class AuthService {
     const user: User = await UserInstance.createUser({
       email: userData.email,
       password: _password,
-      aid: aid
-    });
+      aid: aid,
+    });  
+    
     return user;
   }
 
@@ -71,19 +71,19 @@ export class AuthService {
       return validation;
   }
 
-  public static async activateAccount(emailData: IActivateAccData): Promise<string> {
-    const code: string = (await Database.createQuery(`
-      SELECT code FROM users
-      WHERE email = '${emailData.email}';
+  public static async activateAccount(aid: string): Promise<void> {
+    const user = (await Database.createQuery(`
+      SELECT email FROM users
+      WHERE aid = '${aid}';
     `))[0];
-    if(code !== emailData.code) 
-      throw new ApplicationError(HTTPStatus.FORBIDDEN, "Invalid activation code");
+    console.log(user);
+    
     await Database.createQuery(`
       UPDATE users
       SET activated = true 
-      WHERE email = '${emailData.email}';
+      WHERE email = '${user}';
     `);
 
-    return `Account ${emailData.email} activated`;
+    return;
   }
 }
