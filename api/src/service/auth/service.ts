@@ -6,6 +6,7 @@ import { getDotEnv } from "../../utils/env";
 import { ApplicationError, HTTPStatus } from "../../utils/etc";
 import { IAuthData, IJwtPayload, JwtTokenPair } from "./interfaces";
 import { MailService } from "../mail/";
+import { App } from "../../app";
 
 export class AuthService {
   static async createNewAccount(userData: IAuthData): Promise<User> {
@@ -71,19 +72,22 @@ export class AuthService {
       return validation;
   }
 
-  public static async activateAccount(aid: string): Promise<void> {
-    const user = (await Database.createQuery(`
-      SELECT email FROM users
-      WHERE aid = '${aid}';
+  public static async activateAccount(aid: string): Promise<string> {
+    const user: User = (await Database.createQuery(`
+      SELECT * FROM users
+      WHERE aid = '${aid}'::uuid;
     `))[0];
-    console.log(user);
-    
-    await Database.createQuery(`
+    if(!user) 
+      throw new ApplicationError(HTTPStatus.NOT_FOUND, `User with ActivationID ${aid} not found`);
+    const activated = await Database.createQuery(`
       UPDATE users
       SET activated = true 
-      WHERE email = '${user}';
+      WHERE email = '${user.email}'
+      RETURNING *;
     `);
+    if(!activated) 
+      throw new ApplicationError(HTTPStatus.INTERNAL, "Error during account activation");
 
-    return;
+    return `Account ${user.email} has been activated`;
   }
 }

@@ -21,13 +21,10 @@ export class AuthRouter {
   }
 
   private async activateAccount(req: Request, res: Response): Promise<void> {
-    const aid: string = req.url.split("/")[req.url.length - 1];
-    console.log(req.url);
-    
-    const response: void = await AuthService.activateAccount(aid);
+    const response: string = await AuthService.activateAccount(req.params.aid as string);
 
     res.status(HTTPStatus.SUCCESS)
-      .json(`Account ${req.cookies["USR"].email} is now activated`);
+      .json(response);
   } 
 
   private async createNewAccount(req: Request, res: Response): Promise<void> {
