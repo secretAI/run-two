@@ -1,17 +1,18 @@
 import { Pool, QueryResult } from "pg";
+import { IDatabaseConstructorConfig } from ".";
 import { getDotEnv } from "../utils/env";
 import { ApplicationError, HTTPStatus } from "../utils/etc";
 
 class Database {
   private readonly pool: Pool;
 
-  constructor() {
+  constructor(config: IDatabaseConstructorConfig) {
     this.pool = new Pool({
       host: "localhost",
-      database: getDotEnv("postgres_db"),
-      user: getDotEnv("postgres_user"),
-      port: +getDotEnv("postgres_port"),
-      password: getDotEnv("postgres_password")
+      database: config.database,
+      user: config.user,
+      password: config.password,
+      port: config.port
     });
     console.log("[*] PostgreSQL is running..");
   }
@@ -29,4 +30,9 @@ class Database {
   }
 }
 
-export default new Database();
+export default new Database({
+  database: getDotEnv("postgres_db"),
+  user: getDotEnv("postgres_user"),
+  port: +getDotEnv("postgres_port"),
+  password: getDotEnv("postgres_password")
+});

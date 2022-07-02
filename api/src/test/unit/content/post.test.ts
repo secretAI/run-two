@@ -1,4 +1,4 @@
-import { removeTestData, testAcc } from "..";
+import { removeTestData, testAcc } from "../utils";
 import { Database, Post, PostInstance} from "../../../database/";
 import { AuthService } from "../../../service/auth/";
 import { ContentService } from "../../../service/content";
@@ -25,6 +25,6 @@ describe("Post service Test", () => {
   });
 
   /* ToDo: 
-    1. Tests for saving media's buffer into db and getting it back correctly`
+    1. Tests for saving media's buffer into db and getting it back correctly
   */
 })

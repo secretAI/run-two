@@ -1,16 +1,16 @@
-import { readFileSync } from "fs";
 import { SMTPServer } from "smtp-server";
+import { IMailServerConstructorConfig } from ".";
 import { getDotEnv } from "../../utils/env";
 import { ApplicationError, HTTPStatus } from "../../utils/etc";
 
 export class SMTPModule {
   private readonly server: SMTPServer;
 
-  constructor() {
+  constructor(config: IMailServerConstructorConfig) {
     this.server = new SMTPServer({
       secure: true,
-      key: readFileSync("../server.key"),
-      cert: readFileSync("../server.crt"),
+      key: config.key,
+      cert: config.cert,
       authMethods: [ "PLAIN" ],
       onAuth(auth, session, callback) {
         if(auth.username !== getDotEnv("smtp_address") || auth.password !== getDotEnv("smtp_pass")) 
@@ -18,7 +18,7 @@ export class SMTPModule {
       }
     });
 
-    this.server.listen(+getDotEnv("smtp_port"), () => {
+    this.server.listen(config.port, () => {
       console.log("[*] SMTP Server is running..");
     });
   }

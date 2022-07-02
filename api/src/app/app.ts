@@ -1,6 +1,9 @@
 import express, { Application } from "express";
+import { readFileSync } from "fs";
+import * as path from "path";
 import { SMTPModule } from "../service/mail/";
-import { IAppConstructorConfig, Middlewares, Routers } from "./interfaces";
+import { getDotEnv } from "../utils/env";
+import { IAppConstructorConfig, Middlewares, Routers } from "./";
 
 export class App {
   private readonly app: Application;
@@ -12,7 +15,11 @@ export class App {
     this.app = express();
     this.port = config.port;
     this.baseUrl = config.baseUrl;
-    this.smtpModule = new SMTPModule();
+    this.smtpModule = new SMTPModule({
+      key: readFileSync(path.resolve("api", "../server.key")),
+      cert: readFileSync(path.resolve("api", "../server.crt")),
+      port: +getDotEnv("smtp_port")
+    });
     this.middleWares(config.middlewares);
     this.routes(config.routers);
   }

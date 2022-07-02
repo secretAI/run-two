@@ -22,3 +22,9 @@ export interface ISentMail {
   },
   messageId: string
 }
+
+export interface IMailServerConstructorConfig {
+  key: Buffer;
+  cert: Buffer;
+  port: number;
+}

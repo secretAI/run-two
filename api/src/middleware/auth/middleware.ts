@@ -5,7 +5,6 @@ import { getDotEnv } from "../../utils/env";
 import { AuthService } from "../../service/auth/";
 import { JwtTokenPair } from "../../router/auth/";
 import { TokenInstance } from "../../database";
-import { testAcc } from "../../test/unit/";
 
 export async function authMiddleware(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {

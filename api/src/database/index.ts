@@ -6,9 +6,10 @@ import { TokenInstance } from "./models/tokens/instance";
 import { RefreshToken } from "./models/tokens/interfaces";
 import { Post } from "./models/posts/interfaces";
 import { PostInstance } from "./models/posts/instance";
+import { IDatabaseConstructorConfig } from "./interfaces";
 
 export { 
-  Database, 
+  Database, IDatabaseConstructorConfig,
   User, UserInstance, UserDto,
   TokenInstance, RefreshToken,
   Post, PostInstance

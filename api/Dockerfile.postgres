@@ -2,7 +2,6 @@ FROM postgres:latest
 
 WORKDIR /usr/src/database
 
-COPY src/database/migrations/backup/latest.sql /backup
 # run migrations(⬇️)
 COPY src/database/migrations/migration.sql /docker-entrypoint-initdb.d/
 

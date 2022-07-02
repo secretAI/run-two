@@ -1,4 +1,4 @@
-import { removeTestData, testAcc } from "..";
+import { removeTestData, testAcc } from "../utils";
 import { Database, UserInstance } from "../../../database";
 import { User } from "../../../database/models/users/interfaces";
 import { AuthService, IJwtPayload, JwtTokenPair } from "../../../service/auth";

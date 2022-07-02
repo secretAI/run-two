@@ -1,8 +1,8 @@
 #!make
 include ./api/docker.env
 
-dev: 
-	cd api/ && npm run test && npm run dev
+serve: 
+	cd api/ && npm run dev;
 
 run:
-	docker-compose up --force-recreate
+	docker-compose up --force-recreate;

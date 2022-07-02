@@ -1,4 +1,4 @@
-import { Database } from "../../database/";
+import { Database } from "../../database";
 import { getDotEnv } from "../../utils/env";
 
 export const testAcc = {
@@ -11,4 +11,4 @@ export async function removeTestData() {
     DELETE FROM users
     WHERE email = '${testAcc.email}';
   `); /* Update and Delete are cascade for both Posts and Tokens tables */
-}
+};

@@ -3,13 +3,12 @@ BEGIN;
 CREATE DATABASE demo IF NOT EXISTS;
 \c demo;
 
-SET statement_timeout = 0;
-SET lock_timeout = 0;
+SET statement_timeout = 0; /* Max statement execution timeout */
 SET idle_in_transaction_session_timeout = 0;
 SET check_function_bodies = false;
 SET row_security = off;
 SET client_encoding = "UTF8";
-SET datestyle TO "ISO, DMY";
+SET datestyle TO "ISO, YMD"; /* 1970.01.01 */
 
 CREATE TABLE users(
   id uuid DEFAULT gen_random_uuid(),
