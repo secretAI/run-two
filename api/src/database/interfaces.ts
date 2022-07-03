@@ -3,4 +3,5 @@ export interface IDatabaseConstructorConfig {
   user: string;
   port: number;
   password: string;
+  host?: string;
 }

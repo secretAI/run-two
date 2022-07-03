@@ -8,7 +8,7 @@ class Database {
 
   constructor(config: IDatabaseConstructorConfig) {
     this.pool = new Pool({
-      host: "localhost",
+      host: config.host ? config.host : "localhost",
       database: config.database,
       user: config.user,
       password: config.password,
