@@ -24,6 +24,20 @@ describe("Post service Test", () => {
     expect(post.media).toBeNull();
   });
 
+  it("Should throw a custom error as account doesn't exist", async () => {
+    try {
+      await ContentService.createNewPost({
+        user_email: "not@here.com",
+        title: "title",
+        body: "body"
+      });
+    } catch(err: any) {
+      expect(err).toBeInstanceOf(ApplicationError);
+      expect(err.status).toBe(HTTPStatus.NOT_FOUND);
+      expect(err.message).toBe("User not@here.com does not exist");
+    }
+  });
+
   /* ToDo: 
     1. Tests for saving media's buffer into db and getting it back correctly
   */
