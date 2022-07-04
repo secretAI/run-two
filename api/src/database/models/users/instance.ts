@@ -1,5 +1,5 @@
 import { Database } from "../../";
-import { ICreateUserData, User } from "./interfaces";
+import { ICreateUserData, User } from "../../";
 
 export class UserInstance {
   private static readonly pool = Database;

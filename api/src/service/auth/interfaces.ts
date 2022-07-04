@@ -19,3 +19,8 @@ export interface IJwtPayload {
   iat: number;
   exp: number;
 }
+
+export interface IValidateTokenData {
+  token: JwtTokenPair["access"]|JwtTokenPair["refresh"];
+  secret: string;
+}

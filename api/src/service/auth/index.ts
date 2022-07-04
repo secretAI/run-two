@@ -2,10 +2,11 @@ import { AuthService } from "./service";
 import {
   IAuthData,
   JwtTokenPair,
-  IJwtPayload
+  IJwtPayload,
+  IValidateTokenData
 } from "./interfaces"
 
 export { 
   AuthService, IAuthData, 
-  JwtTokenPair, IJwtPayload 
+  JwtTokenPair, IJwtPayload, IValidateTokenData
 };

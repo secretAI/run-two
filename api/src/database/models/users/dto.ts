@@ -1,4 +1,4 @@
-import { User } from "./interfaces";
+import { User } from "../../";
 
 export class UserDto {
   public readonly id: User["id"];

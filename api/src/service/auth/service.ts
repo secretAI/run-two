@@ -4,9 +4,8 @@ import * as uuid from "uuid";
 import { User, UserDto, UserInstance, TokenInstance, Database } from "../../database/";
 import { getDotEnv } from "../../utils/env";
 import { ApplicationError, HTTPStatus } from "../../utils/etc";
-import { IAuthData, IJwtPayload, JwtTokenPair } from "./interfaces";
+import { IAuthData, IJwtPayload, IValidateTokenData, JwtTokenPair } from "./";
 import { MailService } from "../mail/";
-import { App } from "../../app";
 
 export class AuthService {
   static async createNewAccount(userData: IAuthData): Promise<User> {
@@ -24,7 +23,7 @@ export class AuthService {
       email: userData.email,
       password: _password,
       aid,
-    });  
+    });
     
     return user;
   }
@@ -45,15 +44,18 @@ export class AuthService {
     const dto = new UserDto(user);
     const tokens: JwtTokenPair = {
       access: jwt.sign({ dto: { email: dto.email } } as jwt.JwtPayload, getDotEnv("jwt_secret_access"), {
-        expiresIn: 1000 * 60 * 15
+        expiresIn: "15min"
         /* 15m. */
       }),
       refresh: jwt.sign({ dto } as jwt.JwtPayload, getDotEnv("jwt_secret_refresh"), {
-        expiresIn: 1000 * 60 * 60 * 24
+        expiresIn: 86400000
         /* 1d. */
       })
     };
-    const validation: IJwtPayload = AuthService.validateToken(tokens.refresh, getDotEnv("jwt_secret_refresh"));
+    const validation: IJwtPayload = AuthService.validateToken({
+      token: tokens.refresh,
+      secret: getDotEnv("jwt_secret_refresh")
+    });
     await TokenInstance.saveUserRefreshToken({
       user_email: user.email,
       token: tokens.refresh,
@@ -64,10 +66,10 @@ export class AuthService {
     return tokens;
   }
 
-  public static validateToken(token: string, secret: string): IJwtPayload {
-    const validation: IJwtPayload = jwt.verify(token, secret) as IJwtPayload;
+  public static validateToken(tokenData: IValidateTokenData): IJwtPayload {
+    const validation: IJwtPayload = jwt.verify(tokenData.token, tokenData.secret) as IJwtPayload;
     if(!validation)
-      throw new ApplicationError(HTTPStatus.UNAUTHORIZED, "Invalid token");
+      throw new ApplicationError(HTTPStatus.UNAUTHORIZED, "Invalid token or secret");
 
       return validation;
   }

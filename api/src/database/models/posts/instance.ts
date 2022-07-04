@@ -1,5 +1,5 @@
 import { Database } from "../../";
-import { ICreatePostData, Post } from "./interfaces";
+import { ICreatePostData, Post } from "../../";
 
 
 export class PostInstance {
