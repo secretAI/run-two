@@ -1,6 +1,6 @@
 import { Pool, QueryResult } from "pg";
 import { IDatabaseConstructorConfig } from ".";
-import { getDotEnv } from "../utils/env";
+import { getDotEnv } from "../utils/env-var";
 import { ApplicationError, HTTPStatus } from "../utils/etc";
 
 class Database {
@@ -8,7 +8,7 @@ class Database {
 
   constructor(config: IDatabaseConstructorConfig) {
     this.pool = new Pool({
-      host: config.host ? config.host : "localhost",
+      host: getDotEnv("node_env") == "development"||"test" ? "localhost" : "postgres",
       database: config.database,
       user: config.user,
       password: config.password,

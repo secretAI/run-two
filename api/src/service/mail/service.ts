@@ -1,6 +1,6 @@
 import { config } from "dotenv";
 import { Transporter, createTransport } from "nodemailer";
-import { getDotEnv } from "../../utils/env";
+import { getDotEnv } from "../../utils/env-var";
 import { IHtmlStyles, ISendMailData, ISentMail, ITransportConstructorConfig} from "./";
 import { SMTPModule } from "./smtp";
 

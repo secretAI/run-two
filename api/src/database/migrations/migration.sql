@@ -1,8 +1,5 @@
 BEGIN;
 
-CREATE DATABASE demo IF NOT EXISTS;
-\c demo;
-
 SET statement_timeout = 0; /* Max statement execution timeout */
 SET idle_in_transaction_session_timeout = 0;
 SET check_function_bodies = false;

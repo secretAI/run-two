@@ -2,7 +2,7 @@ import { removeTestData, testAcc } from "../utils";
 import { Database, UserInstance } from "../../../database";
 import { User } from "../../../database/models/users/interfaces";
 import { AuthService, IJwtPayload, JwtTokenPair } from "../../../service/auth";
-import { getDotEnv } from "../../../utils/env";
+import { getDotEnv } from "../../../utils/env-var";
 
 describe("Auth Test", () => {
   afterAll(async () => {
@@ -23,8 +23,14 @@ describe("Auth Test", () => {
   it("Should login into test account & validate 2 JWTs", async () => {
     const tokens: JwtTokenPair = await AuthService.loginIntoAccount(testAcc);
     const validation: IJwtPayload[] = [
-      AuthService.validateToken(tokens.access, getDotEnv("jwt_secret_access")),
-      AuthService.validateToken(tokens.refresh, getDotEnv("jwt_secret_refresh"))
+      AuthService.validateToken({
+        token: tokens.access, 
+        secret: getDotEnv("jwt_secret_access")
+      }),
+      AuthService.validateToken({
+        token: tokens.refresh, 
+        secret: getDotEnv("jwt_secret_refresh")
+      })
     ];
     
     expect(tokens).toBeTruthy();

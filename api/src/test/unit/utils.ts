@@ -1,5 +1,5 @@
 import { Database } from "../../database";
-import { getDotEnv } from "../../utils/env";
+import { getDotEnv } from "../../utils/env-var";
 
 export const testAcc = {
   email: getDotEnv("test_acc_email"),

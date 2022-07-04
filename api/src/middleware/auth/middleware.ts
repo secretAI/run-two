@@ -1,7 +1,7 @@
 import * as jwt from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
 import { ApplicationError, HTTPStatus } from "../../utils/etc";
-import { getDotEnv } from "../../utils/env";
+import { getDotEnv } from "../../utils/env-var";
 import { AuthService } from "../../service/auth/";
 import { JwtTokenPair } from "../../service/auth/";
 

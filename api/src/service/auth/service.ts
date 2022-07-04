@@ -2,7 +2,7 @@ import * as jwt from "jsonwebtoken";
 import * as bcrypt from "bcrypt";
 import * as uuid from "uuid";
 import { User, UserDto, UserInstance, TokenInstance, Database } from "../../database/";
-import { getDotEnv } from "../../utils/env";
+import { getDotEnv } from "../../utils/env-var";
 import { ApplicationError, HTTPStatus } from "../../utils/etc";
 import { IAuthData, IJwtPayload, IValidateTokenData, JwtTokenPair } from "./";
 import { MailService } from "../mail/";

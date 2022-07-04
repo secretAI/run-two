@@ -3,7 +3,7 @@ import cookieParser from "cookie-parser";
 import { App } from "./app/";
 import { AuthRouter } from "./router/auth/";
 import { ContentRouter } from "./router/content/";
-import { getDotEnv } from "./utils/env";
+import { getDotEnv } from "./utils/env-var";
 
 const port = +getDotEnv("app_port");
 

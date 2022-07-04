@@ -2,7 +2,7 @@ import express, { Application } from "express";
 import { readFileSync } from "fs";
 import * as path from "path";
 import { SMTPModule } from "../service/mail/";
-import { getDotEnv } from "../utils/env";
+import { getDotEnv } from "../utils/env-var";
 import { IAppConstructorConfig, Middlewares, Routers } from "./";
 
 export class App {

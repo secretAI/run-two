@@ -1,6 +1,6 @@
 import { SMTPServer } from "smtp-server";
 import { IMailServerConstructorConfig } from ".";
-import { getDotEnv } from "../../utils/env";
+import { getDotEnv } from "../../utils/env-var";
 import { ApplicationError, HTTPStatus } from "../../utils/etc";
 
 export class SMTPModule {
