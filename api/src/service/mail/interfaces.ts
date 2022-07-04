@@ -4,9 +4,10 @@ export interface ISendMailData {
 }
 
 export interface IHtmlStyles {
-  root: string;
+  letter: string;
   link: string;
-  btn: string;
+  title: string;
+  body: string;
 }
 
 export interface ISentMail {
@@ -27,4 +28,12 @@ export interface IMailServerConstructorConfig {
   key: Buffer;
   cert: Buffer;
   port: number;
+}
+
+export interface ITransportConstructorConfig {
+  port: number;
+  host: string;
+  user: string;
+  pass: string;
+  service: string;
 }

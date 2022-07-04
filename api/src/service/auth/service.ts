@@ -14,7 +14,13 @@ export class AuthService {
       throw new ApplicationError(HTTPStatus.FORBIDDEN, `Email ${userData.email} is taken..`);
     const _password = bcrypt.hashSync(userData.password, +getDotEnv("salt_rnds"));
     const aid: string = uuid.v4();
-    const mailer = new MailService();
+    const mailer = new MailService({
+      host: "localhost",
+      port: +getDotEnv("smtp_port"),
+      service: "gmail",
+      user: getDotEnv("smtp_address"),
+      pass: getDotEnv("smtp_pass")
+    });
     await mailer.sendActivationMail({
       to: userData.email,
       aid

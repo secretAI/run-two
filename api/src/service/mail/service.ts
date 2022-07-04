@@ -1,20 +1,21 @@
+import { config } from "dotenv";
 import { Transporter, createTransport } from "nodemailer";
 import { getDotEnv } from "../../utils/env";
-import { IHtmlStyles, ISendMailData, ISentMail} from "./";
+import { IHtmlStyles, ISendMailData, ISentMail, ITransportConstructorConfig} from "./";
 import { SMTPModule } from "./smtp";
 
 export class MailService {
   private readonly transporter: Transporter;
 
-  constructor() {
+  constructor(config: ITransportConstructorConfig) {
     this.transporter = createTransport({
-      host: "localhost",
-      port: +getDotEnv("smtp_port"),
+      host: config.host,
+      port: config.port,
       secure: true,
-      service: "gmail",
+      service: config.service,
       auth: {
-        user: getDotEnv("smtp_address"),
-        pass: getDotEnv("smtp_pass")
+        user: config.user,
+        pass: config.pass
       },
       tls: {
         rejectUnauthorized: false
@@ -28,16 +29,21 @@ export class MailService {
       from: getDotEnv("smtp_address"),
       to: emailData.to,
       subject: "RUN-2 Account Activation",
-      html: 
-      `
-        <div style="${styles.root}">
-          <button style="${styles.btn}">
-            <a href="${this.createRedirectURL(emailData.aid)}" target="_blank" style="${styles.link}">
-              Activate
+      html: `
+        <table class="letter" style="${styles.letter}">
+          <tr class="title" style="${styles.title}">
+            Account Activation
+          </tr>
+          <tr class="body" style="${styles.body}">
+            Welcome to the RUN-2! I hope that your experience of using our product will be enjoyable, bro. In order to activate your free account follow this link:
+          </tr>
+          <tr>
+            <a href="${this.createRedirectURL(emailData.aid)}" target="_blank" class="link" style="${styles.link}">
+              LINK
             </a>
-          </button>
+          </tr>
         </div>
-      `
+      ` /* Have to use tables as mail API doesn't recognize flexbox */
     });
 
     return mail;
@@ -45,35 +51,34 @@ export class MailService {
 
   private generateHtmlStyles(): IHtmlStyles {
     return {
-      root: `
-        width: 100%;
-        height: auto;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        user-select: none;
-        margin: 10px 0;
-        padding: 0;
+      letter: `
+        width: 600px;
+        text-align: center;
+        padding: 0 15px;
+        color: white;
+        background-color:#4cbfa6;
+        border-radius: 8px;
         box-sizing: border-box;
       `,
-      btn: `
-        font-family: monospace;
-        letter-spacing: -3px;
-        font-size: 30px;
-        height: 80px;
-        width: 320px;
-        padding: 14px;
-        color: white;
-        border: 3px solid rgb(0,128,128);
-        border-radius: 10px;
-        background: rgb(0,128,128);
-        cursor: pointer;
+      title: `
+        font-family: Arial;
+        font-size: 36px;
+        letter-spacing: -0.5px;
+        margin: 15px ;
+      `,
+      body: `
+        font-family: Verdana;
+        font-size: 20px;
+        margin: 12px;
+        line-height: 95%;
+        letter-spacing: -0.3px;
       `,
       link: `
+        font-family: monospace;
+        font-size: 26px;
         color: white;
-        text-decoration: none;
-        width: 100%;
-        height: 100%;
+        cursor: pointer;
+        letter-spacing: -1.5px;
       `
     }
   }

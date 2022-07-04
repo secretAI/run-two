@@ -1,9 +1,9 @@
 import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
 import { App } from "./app/";
 import { AuthRouter } from "./router/auth/";
 import { ContentRouter } from "./router/content/";
 import { getDotEnv } from "./utils/env";
-import cookieParser from "cookie-parser";
 
 const port = +getDotEnv("app_port");
 
