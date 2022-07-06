@@ -42,7 +42,7 @@ export class AuthService {
     } = userData;
     const user: User = await UserInstance.getUserByEmail(email);
     if(!user)
-      throw new ApplicationError(HTTPStatus.NOT_FOUND, `User ${email} not found`);
+      throw new ApplicationError(HTTPStatus.NOT_FOUND, `User ${email} does not exist`);
     if(!user.activated) 
       throw new ApplicationError(HTTPStatus.BAD_REQUEST, "Activate your account first");
     const isPasswordOK: boolean = bcrypt.compareSync(password, user.password);

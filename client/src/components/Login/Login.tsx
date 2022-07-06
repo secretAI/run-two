@@ -1,38 +1,40 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { http } from "../../http/http";
 import "../../styles/LoginSignUp.css"
 
-function SignUp() {
+function Login() {
   const redirect = useNavigate();
 
-  async function signUp() {
-    if(pass !== rePass) {
-      const message: string = "Passwords do not match"
-      setErr(message);
-      throw new Error(message);
-    }
+  async function login() {
+    const errElem: HTMLElement = document.getElementById("err")
     try {
-      const account = await http.post("/auth/signup", {
+      const session = await http.post("/auth/login", {
         email: email,
         password: pass
       });
-      if(account) 
-        redirect("/login")
-    } catch(error: any) {
+      if(session) {
+        localStorage.setItem("SSN", session.data.access)
+        redirect("/")
+      }
+    }
+    catch(error: any) {
+      errElem.style.opacity = "100%";
       setErr(`${error.response.data}`);
+      setTimeout(() => {
+        errElem.style.opacity = "0";
+      }, 5000);
     }
   }
 
   const [ email, setEmail ] = useState("");
   const [ pass, setPass ] = useState("");
-  const [ rePass, setRePass ] = useState("");
   const [ err, setErr ] = useState("");
 
   return(
     <div className="s-wrapper">
       <h1 className="header">
-        Sign Up
+        Login
       </h1>
       <input 
         type="text" 
@@ -46,15 +48,9 @@ function SignUp() {
         placeholder="Password"
         id="pass" 
         onChange={(event: ChangeEvent<HTMLInputElement>) => setPass(event.target.value)}/>
-      <input 
-        type="password" 
-        className="auth-data" 
-        placeholder="Password again"
-        id="repass" 
-        onChange={(event: ChangeEvent<HTMLInputElement>) => setRePass(event.target.value)}/>
-      <button className="auth-btn" id="signup" onClick={signUp}>Submit</button>
-      <a href="/login" className="redirect">
-        Already have an account?<br/> Welcome!
+      <button className="auth-btn" id="signup" onClick={login}>Submit</button>
+      <a href="/signup" className="redirect">
+        Create Free Account
       </a>
       <p className="err" id="err">
         {err}
@@ -63,4 +59,4 @@ function SignUp() {
   )
 }
 
-export default SignUp;
+export default Login;

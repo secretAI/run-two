@@ -1,5 +1,5 @@
 
-const PostItem = () => {
+function PostItem() {
   
 }
 

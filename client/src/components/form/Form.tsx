@@ -1,9 +1,16 @@
-import React, { FormEvent, useRef, useState, ChangeEvent } from "react";
+import React, { FormEvent, useRef, useState, ChangeEvent, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import pinIcon from "../../assets/thumbtacks.png";
 import { http } from "../../http/http";
 import "../../styles/Form.css";
 
 const Form = () => {
+  const redirect = useNavigate();
+  useEffect(() => {
+    if(!localStorage.getItem("SSN"))
+      redirect("/auth")
+  })
+
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const fileRef = useRef<HTMLInputElement>();
@@ -24,7 +31,7 @@ const Form = () => {
   }
 
   return(
-    <div className="wrapper">
+    <div className="f-wrapper">
       <form className="form" name="form" onSubmit={ createNewPost }>
         <input 
           type="text" 
