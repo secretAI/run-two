@@ -6,3 +6,8 @@ export interface ICreatePostData {
   body: string;
   media?: Buffer;
 }
+
+export interface IHandleMediaData {
+  post_id: string;
+  files_path: string;
+}

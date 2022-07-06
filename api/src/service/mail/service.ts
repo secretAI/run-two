@@ -7,7 +7,7 @@ import { SMTPModule } from "./smtp";
 export class MailService {
   private readonly transporter: Transporter;
 
-  constructor(config: ITransportConstructorConfig) {
+    constructor(config: ITransportConstructorConfig) {
     this.transporter = createTransport({
       host: config.host,
       port: config.port,

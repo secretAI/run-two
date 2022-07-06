@@ -29,6 +29,7 @@ export class AuthService {
       email: userData.email,
       password: _password,
       aid,
+      activated: userData.email == getDotEnv("test_acc_email") ? true : false 
     });
     
     return user;

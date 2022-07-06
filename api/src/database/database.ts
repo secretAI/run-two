@@ -8,6 +8,7 @@ class Database {
 
   constructor(config: IDatabaseConstructorConfig) {
     this.pool = new Pool({
+      /* Have to use docker-container name as host for production(⬇️) */
       host: getDotEnv("node_env") == "development"||"test" ? "localhost" : "postgres",
       database: config.database,
       user: config.user,

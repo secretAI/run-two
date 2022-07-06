@@ -20,15 +20,13 @@ export class TokenInstance {
       WHERE user_email = '${tokenData.user_email}';
     `))[0];
     if(doesExist) {
-      const refreshToken: RefreshToken = (await this.pool.createQuery(`
+      return (await this.pool.createQuery(`
         UPDATE tokens 
         SET token = '${tokenData.token}'
         WHERE user_email = '${tokenData.user_email}';
       `))[0];
-
-      return refreshToken;
     } else {
-      const refreshToken: RefreshToken = (await this.pool.createQuery(`
+      return (await this.pool.createQuery(`
         INSERT INTO tokens (${Object.keys(tokenData)
         .join(", ")})
         VALUES (${Object.values(tokenData)
@@ -36,8 +34,6 @@ export class TokenInstance {
         .join(", ")})
         RETURNING *;
       `))[0];
-
-      return refreshToken;
     }
   }
 

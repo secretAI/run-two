@@ -27,4 +27,13 @@ export class PostInstance {
 
     return post;
   } 
+
+  public static async getPostById(post_id: string): Promise<Post> {
+    const post: Post = (await this.pool.createQuery(`
+      SELECT * FROM posts
+      WHERE id = '${post_id}';
+    `))[0];
+
+    return post;
+  }
 }
