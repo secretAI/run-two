@@ -1,69 +1,64 @@
+.wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .form {
+  margin-top: 2.5%;
   display: flex;
   flex-direction: column;
-  align-items:flex-end;
-  margin-bottom: 50px;
 }
 
-.form button {
-  border: none;
-  background-color: teal;
-  color: white;
+.form * {
+  margin: 5px 0;
 }
 
-.form-title,
-.form-body,
-.form-send {
-  font-size: 24px;
-  margin: 6.5px 0;
-  font-family: 'Raleway', sans-serif;
-  border-radius: 6px;
-}
-
-.form-title {
-  padding: 15px 6.5px;
-  width: 100%;
-  border: 2px solid teal;
-  height: 50px;
+.form-title, .form-body {
+  width: 600px;
+  padding: 15px;
+  font-size: 22px;
+  font-family: 'Montserrat', sans-serif;
+  border-radius: 12px;
+  border: 2px solid gray;
 }
 
 .form-body {
-  padding: 15px 6.5px;
-  width: 100%;
-  border: 2px solid teal;
-  resize: none;
   height: 200px;
+  resize: none;
 }
 
 .form-buttons {
   display: flex;
   align-items: center;
-}
-
-.form-buttons * {
-  margin-inline: 4px;
+  user-select: none;
 }
 
 .form-send {
-  width: 150px;
+  width: 120px;
   height: 50px;
-  border: 2.5px solid transparent;
-  transition-duration: 170ms;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: white;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
+  background-color: teal;
+  transition-duration: 140ms;
 }
 
 .form-send:hover {
-  background-color: white;
-  color: teal;
-  border: 2.5px solid teal;
+  background-color: rgb(0, 95, 95);
 }
 
-.form-file {
+#file {
   display: none;
 }
 
 .form-icon {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   cursor: pointer;
+  margin-inline: 10px;
 }
