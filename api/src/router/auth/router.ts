@@ -24,6 +24,7 @@ export class AuthRouter {
     );
     this.router.post(`${this.baseUrl}/login`, this.loginIntoAccount);
     this.router.get(`${this.baseUrl}/activate/:aid`, this.activateAccount);
+    this.router.post(`${this.baseUrl}/logout`, this.logOut);
   }
 
   private async activateAccount(req: Request, res: Response): Promise<void> {
@@ -72,6 +73,20 @@ export class AuthRouter {
           maxAge: 1000 * 60 * 60 * 24 /* 1 day */
         })
         .json(response);
+    } catch(err: any|ApplicationError) {
+      console.error(err);
+      res.status(err.status)
+        .json(err.message);
+    }
+  }
+
+  private async logOut(req: Request, res: Response) {
+    try {
+      const reponse: void = await AuthService.logOut(req.body as User["email"]);
+  
+      res.status(HTTPStatus.SUCCESS)
+        .clearCookie("RETOKEN")
+        .json(`User ${req.body} successfully logged out`);
     } catch(err: any|ApplicationError) {
       console.error(err);
       res.status(err.status)

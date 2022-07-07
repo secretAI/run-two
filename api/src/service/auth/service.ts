@@ -99,4 +99,11 @@ export class AuthService {
 
     return `Account ${user.email} has been activated`;
   }
+
+  public static async logOut(email: string) {
+    await RefreshTokenInstance.deleteToken({
+      param: "user_email",
+      value: email
+    });
+  }
 }

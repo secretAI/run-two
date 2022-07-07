@@ -9,8 +9,6 @@ export class RefreshTokenInstance {
   private static readonly pool = Database;
 
   static async deleteToken(data: IPostgresQueryData): Promise<RefreshToken> {
-    if(!data.param)
-      data.param = "user_email";
     const deleted: RefreshToken = (await this.pool.createQuery(`
       DELETE FROM tokens
       WHERE ${data.param} = '${data.value}'
@@ -46,8 +44,6 @@ export class RefreshTokenInstance {
   }
 
   static async getRefreshToken(data: IPostgresQueryData): Promise<RefreshToken> {
-    if(!data.param)
-      data.param = "user_email";
     const refreshToken: RefreshToken = (await this.pool.createQuery(`
       SELECT * 
       FROM tokens
