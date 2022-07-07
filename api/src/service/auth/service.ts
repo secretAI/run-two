@@ -1,7 +1,7 @@
 import * as jwt from "jsonwebtoken";
 import * as bcrypt from "bcrypt";
 import * as uuid from "uuid";
-import { User, UserDto, UserInstance, TokenInstance, Database } from "../../database/";
+import { User, UserDto, UserInstance, RefreshTokenInstance, Database } from "../../database/";
 import { getDotEnv } from "../../utils/env-var";
 import { ApplicationError, HTTPStatus } from "../../utils/etc";
 import { IAuthData, IJwtPayload, IValidateTokenData, JwtTokenPair } from "./";
@@ -63,7 +63,7 @@ export class AuthService {
       token: tokens.refresh,
       secret: getDotEnv("jwt_secret_refresh")
     });
-    await TokenInstance.saveUserRefreshToken({
+    await RefreshTokenInstance.saveUserRefreshToken({
       user_email: user.email,
       token: tokens.refresh,
       /* ToDo: fix expires at Value */

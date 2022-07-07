@@ -5,7 +5,7 @@ import {
   IPostgresQueryData } 
 from "../../";
 
-export class TokenInstance {
+export class RefreshTokenInstance {
   private static readonly pool = Database;
 
   static async deleteToken(data: IPostgresQueryData): Promise<RefreshToken> {

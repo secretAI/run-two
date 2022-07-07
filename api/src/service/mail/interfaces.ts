@@ -3,12 +3,14 @@ export interface ISendMailData {
   aid: string;
 }
 
-export interface IHtmlStyles {
+export interface IActivationMailStyles {
   letter: string;
   link: string;
   title: string;
   body: string;
 }
+
+export type Styles = IActivationMailStyles;
 
 export interface ISentMail {
   accepted: string[],
