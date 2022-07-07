@@ -33,7 +33,7 @@ export class ContentRouter {
   }
 
   private async getAllPosts(req: Request, res: Response): Promise<void> {
-    const response: Post[] = await PostInstance.getAllPosts();
+    const response: Post[] = await ContentService.getAllPosts();
 
     res.status(HTTPStatus.SUCCESS)
       .json(response);

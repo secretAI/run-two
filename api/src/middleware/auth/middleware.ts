@@ -4,6 +4,7 @@ import { ApplicationError, HTTPStatus } from "../../utils/etc";
 import { getDotEnv } from "../../utils/env-var";
 import { AuthService } from "../../service/auth/";
 import { JwtTokenPair } from "../../service/auth/";
+import { TokenInstance } from "../../database";
 
 export async function authMiddleware(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {

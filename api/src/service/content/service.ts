@@ -24,7 +24,7 @@ export class ContentService {
     return post;
   }
 
-  public static async handlePostMedia(postData: IHandleMediaData) {
+  public static async handlePostMedia(postData: IHandleMediaData) { /* Finish file handling */
     const post = await PostInstance.getPostById(postData.post_id);
     if(!post)
       throw new ApplicationError(HTTPStatus.NOT_FOUND, `Post with id ${postData.post_id} not found`);

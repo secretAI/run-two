@@ -56,7 +56,7 @@ export class MailService {
         text-align: center;
         padding: 0 15px;
         color: white;
-        background-color:#4cbfa6;
+        background-color: teal;
         border-radius: 8px;
         box-sizing: border-box;
       `,

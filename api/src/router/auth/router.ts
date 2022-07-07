@@ -42,7 +42,7 @@ export class AuthRouter {
   private async createNewAccount(req: Request, res: Response): Promise<void> {
     try {
       for(const err of validationResult(req).array()) {
-        switch(err.param) {
+        switch(err.param) { /* Track which param from above is incorrect */
           case("email"):
             throw new ApplicationError(HTTPStatus.BAD_REQUEST, `Incorrect email "${err.value}". Try again`);
           case("password"):
@@ -76,13 +76,6 @@ export class AuthRouter {
       console.error(err);
       res.status(err.status)
         .json(err.message);
-    }
-  }
-
-  private validateRequest(req: Request) {    
-    for(const error of validationResult(req).array()) {
-      if(error)
-        throw new ApplicationError(HTTPStatus.BAD_REQUEST, error.msg);
     }
   }
 };

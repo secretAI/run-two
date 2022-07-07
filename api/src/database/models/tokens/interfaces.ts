@@ -13,3 +13,8 @@ export interface ISaveTokenData {
   token: string;
   expires_at: string;
 }
+
+export interface IPostgresQueryData {
+  param?: string;
+  value: string;
+}
