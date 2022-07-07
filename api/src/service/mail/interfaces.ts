@@ -10,8 +10,6 @@ export interface IActivationMailStyles {
   body: string;
 }
 
-export type Styles = IActivationMailStyles;
-
 export interface ISentMail {
   accepted: string[],
   rejected: string[],

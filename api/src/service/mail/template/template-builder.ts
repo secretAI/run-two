@@ -1,14 +1,10 @@
-import { getDotEnv } from "../../utils/env-var";
-import { ApplicationError, HTTPStatus } from "../../utils/etc";
-import { ISendMailData, Styles } from "./interfaces";
+import { getDotEnv } from "../../../utils/env-var";
+import { IActivationMailStyles, ISendMailData } from "..";
 
 
 export class TemplateBuilder {
-  private readonly html: string;
-  private readonly styles: Styles;
-
   public static activationMail(aid: string) {
-    const styles = {
+    const styles: IActivationMailStyles = {
       letter: `
         width: 600px;
         text-align: center;

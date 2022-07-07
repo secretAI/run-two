@@ -1,7 +1,7 @@
 import { Transporter, createTransport } from "nodemailer";
 import { getDotEnv } from "../../utils/env-var";
 import { ISendMailData, ISentMail, ITransportConstructorConfig} from "./";
-import { TemplateBuilder } from "./template-builder";
+import { TemplateBuilder } from "./template/template-builder";
 
 export class MailService {
   private readonly transporter: Transporter;

@@ -1,16 +1,15 @@
 import { MailService } from "./service";
-import { SMTPModule } from "./smtp";
+import { SMTPModule } from "./server/smtp";
 import { 
   ISendMailData, 
   IActivationMailStyles,
   ISentMail, 
   IMailServerConstructorConfig, 
   ITransportConstructorConfig, 
-  Styles
 } from "./interfaces";
 
 export { 
   MailService, ISendMailData, ISentMail, ITransportConstructorConfig,
-  Styles, IActivationMailStyles, 
+  IActivationMailStyles, 
   SMTPModule, IMailServerConstructorConfig
 };
