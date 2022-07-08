@@ -17,8 +17,10 @@ function SignUp() {
         email: email,
         password: pass
       });
-      if(account) 
-        redirect("/login")
+      if(account) {
+        redirect("/activation")
+        localStorage.setItem("USR", email);
+      }
     } catch(error: any) {
       setErr(`${error.response.data}`);
     }

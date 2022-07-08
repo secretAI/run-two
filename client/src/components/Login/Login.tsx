@@ -14,8 +14,10 @@ function Login() {
         password: pass
       });
       if(session) {
-        localStorage.setItem("SSN", session.data.access)
-        redirect("/")
+        localStorage.setItem("SSN", session.data.access);
+        localStorage.setItem("REF", session.data.refresh);
+        redirect("/");
+        window.location.reload();
       }
     }
     catch(error: any) {

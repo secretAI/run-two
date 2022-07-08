@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import "../../styles/Auth.css"
 
 function Auth() {
   const redirect = useNavigate();

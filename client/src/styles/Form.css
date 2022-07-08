@@ -4,6 +4,25 @@
   justify-content: center;
 }
 
+.logout {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 90px;
+  height: 40px;
+  background-color: teal;
+  color: white;
+  font-size: 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition-duration: 120ms;
+}
+
+.logout:hover {
+  background-color: rgb(0, 95, 95);
+}
+
 .form {
   margin-top: 2.5%;
   display: flex;

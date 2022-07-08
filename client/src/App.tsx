@@ -1,22 +1,21 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import './App.css';
+import Activation from './components/Activation/Activation';
+import Auth from './components/Auth/Auth';
 import Login from './components/Login/Login';
 import SignUp from './components/SignUp/SignUp';
-import AuthPage from './pages/AuthPage';
 import MainPage from './pages/MainPage';
 
 function App() {
-  function isLoggedIn() {
-    return !!localStorage.getItem("SSN");
-  }
-
   return (
     <div className='App'>
       <Routes>
-        <Route path="/" element={isLoggedIn() ? <MainPage/> : <AuthPage/>}/>
-          <Route path="/signup" element={<SignUp/>}/>
-          <Route path="/login" element={<Login/>}/>
+        <Route path="/" element={<MainPage/>}/>
+        <Route path="/activation" element={<Activation/>}/>
+        <Route path="/gateaway" element={<Auth/>}/>
+        <Route path="/signup" element={<SignUp/>}/>
+        <Route path="/login" element={<Login/>}/>
       </Routes>
     </div>
   );

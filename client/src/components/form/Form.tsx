@@ -17,21 +17,33 @@ const Form = () => {
 
   const createNewPost = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const response = await http.post("/posts/new", { 
+    await http.post("/posts/new", { 
+      title: title,
+      body: body,
       /* Finish creating a new post with this endpoint */
       image: fileRef.current.files[0]
     }, {
       headers: {
-        "Content-type": "multipart/form-data"
+        "Content-type": "multipart/form-data",
+        "Authorization": `Bearer ${localStorage.getItem("SSN")}`
       }
     });
-    
-    console.log(response);
-    
+  }
+
+  const logOut = async (event: any) => {
+    event.preventDefault();
+    await http.post("/auth/logout", {
+      reToken: localStorage.getItem("REF")
+    });
+    localStorage.clear();
+    window.location.reload();
   }
 
   return(
     <div className="f-wrapper">
+      <button className="logout" onClick={ logOut }>
+        Log Out
+      </button>
       <form className="form" name="form" onSubmit={ createNewPost }>
         <input 
           type="text" 
