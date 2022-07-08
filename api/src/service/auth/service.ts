@@ -4,7 +4,7 @@ import * as uuid from "uuid";
 import { User, UserDto, UserInstance, RefreshTokenInstance, Database, RefreshToken } from "../../database/";
 import { getDotEnv } from "../../utils/env-var";
 import { ApplicationError, HTTPStatus } from "../../utils/etc";
-import { IAuthData, ICheckActivationData, IJwtPayload, IValidateTokenData, JwtTokenPair } from "./";
+import { IAuthData, ICheckActivationData, IJwtPayload, ILogOutData, IValidateTokenData, JwtTokenPair } from "./";
 import { MailService } from "../mail/";
 
 export class AuthService {
@@ -21,15 +21,14 @@ export class AuthService {
       user: getDotEnv("smtp_address"),
       pass: getDotEnv("smtp_pass")
     });
-    // await mailer.sendActivationMail({
-    //   to: userData.email,
-    //   aid
-    // }); /* uncomment */
+    await mailer.sendActivationMail({
+      to: userData.email,
+      aid
+    }); /* uncomment */
     const user: User = await UserInstance.createUser({
       email: userData.email,
       password: _password,
-      aid,
-      activated: userData.email == getDotEnv("test_acc_email") ? true : false 
+      aid
     });
     
     return user;
@@ -55,7 +54,7 @@ export class AuthService {
         /* 15m. */
       }),
       refresh: jwt.sign({ dto } as jwt.JwtPayload, getDotEnv("jwt_secret_refresh"), {
-        expiresIn: 86400000
+        expiresIn: "1d"
         /* 1d. */
       })
     };
@@ -109,13 +108,13 @@ export class AuthService {
     return reToken;
   }
 
-  public static async logOut(reToken: string): Promise<string> {
-    const deleted: RefreshToken = await RefreshTokenInstance.deleteToken({
+  public static async logOut(data: ILogOutData): Promise<string> {
+    await RefreshTokenInstance.deleteToken({
       param: "token",
-      value: reToken
+      value: data.reToken
     });
-
-    return `User ${deleted.user_email} successfully logged out`;
+      
+    return `User successfully logged out`;
   }
 
   public static async checkActivation(data: ICheckActivationData): Promise<boolean> {
@@ -123,6 +122,8 @@ export class AuthService {
       SELECT * FROM users
       WHERE email = '${data.email}';
     `))[0];
+    if(!user)
+      throw new ApplicationError(HTTPStatus.NOT_FOUND, `User ${data.email} doesn't exist`)
 
     return user.activated;
   }

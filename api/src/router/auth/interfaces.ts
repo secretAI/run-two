@@ -10,6 +10,10 @@ export type JwtTokenPair = {
   refresh: string;
 }
 
+export interface ILogoutReq extends Request {
+  reToken: string;
+}
+
 export interface ICheckActivationReq extends Request {
   email: string;
 }

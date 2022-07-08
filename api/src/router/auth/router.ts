@@ -1,7 +1,7 @@
 import { Request, Response, Router } from "express";
 import { body, validationResult } from "express-validator";
 import { ApplicationError, HTTPStatus } from "../../utils/etc";
-import { IAuthReq, ICheckActivationReq, JwtTokenPair } from "./";
+import { IAuthReq, ICheckActivationReq, ILogoutReq, JwtTokenPair } from "./";
 import { User } from "../../database/";
 import { AuthService } from "../../service/auth/";
 
@@ -30,7 +30,7 @@ export class AuthRouter {
 
   private async activateAccount(req: Request, res: Response): Promise<void> {
     try {
-      const response: string = await AuthService.activateAccount(req.params["aid"] as string);
+      const response: string = await AuthService.activateAccount(req.params["aid"] as User["aid"]);
   
       res.status(HTTPStatus.SUCCESS)
         .json(response);
@@ -83,12 +83,12 @@ export class AuthRouter {
 
   private async logOut(req: Request, res: Response) {
     try {
-      await AuthService.logOut(req.body as User["email"]);
-  
+      await AuthService.logOut(req.body as ILogoutReq);
+      
       res.status(HTTPStatus.SUCCESS)
         .clearCookie("RETOKEN")
-        .json(`User ${req.body} successfully logged out`);
-    } catch(err: any|ApplicationError) {
+        .json("User successfully logged out");
+    } catch(err: any|ApplicationError) {  
       console.error(err);
       res.status(err.status)
         .json(err.message);

@@ -4,11 +4,12 @@ import {
   JwtTokenPair,
   IJwtPayload,
   IValidateTokenData,
-  ICheckActivationData
+  ICheckActivationData,
+  ILogOutData
 } from "./interfaces"
 
 export { 
-  AuthService, IAuthData, 
+  AuthService, IAuthData, ILogOutData,
   JwtTokenPair, IJwtPayload, IValidateTokenData,
   ICheckActivationData
 };
