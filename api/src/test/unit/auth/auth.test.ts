@@ -1,5 +1,5 @@
 import { removeTestData, testAcc } from "../utils";
-import { Database, UserInstance } from "../../../database";
+import { Database, RefreshToken, RefreshTokenInstance, UserInstance } from "../../../database";
 import { User } from "../../../database/models/users/interfaces";
 import { AuthService, IJwtPayload, JwtTokenPair } from "../../../service/auth";
 import { getDotEnv } from "../../../utils/env-var";
@@ -40,4 +40,16 @@ describe("Auth Test", () => {
       expect(payload.dto.email).toBe(testAcc.email);
     });
   });
+
+  it("Should log out (Delete token from Database)", async () => {
+    const reToken: RefreshToken = await AuthService.getRefreshTokenByEmail(testAcc.email);
+    const loggedOut: string = await AuthService.logOut(reToken.token);
+        
+    const doesTokenExist: boolean = !!(await AuthService.getRefreshTokenByEmail(testAcc.email));
+    
+    expect(loggedOut).toBe(`User ${testAcc.email} successfully logged out`);
+    expect(doesTokenExist).toBe(false);
+
+
+  })
 });

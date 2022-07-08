@@ -1,7 +1,7 @@
 import * as jwt from "jsonwebtoken";
 import * as bcrypt from "bcrypt";
 import * as uuid from "uuid";
-import { User, UserDto, UserInstance, RefreshTokenInstance, Database } from "../../database/";
+import { User, UserDto, UserInstance, RefreshTokenInstance, Database, RefreshToken } from "../../database/";
 import { getDotEnv } from "../../utils/env-var";
 import { ApplicationError, HTTPStatus } from "../../utils/etc";
 import { IAuthData, ICheckActivationData, IJwtPayload, IValidateTokenData, JwtTokenPair } from "./";
@@ -100,11 +100,22 @@ export class AuthService {
     return `Account ${user.email} has been activated`;
   }
 
-  public static async logOut(reToken: string) {
-    await RefreshTokenInstance.deleteToken({
+  public static async getRefreshTokenByEmail(email: string): Promise<RefreshToken> {
+    const reToken: RefreshToken = await RefreshTokenInstance.getRefreshToken({
+      param: "user_email",
+      value: email
+    });
+
+    return reToken;
+  }
+
+  public static async logOut(reToken: string): Promise<string> {
+    const deleted: RefreshToken = await RefreshTokenInstance.deleteToken({
       param: "token",
       value: reToken
     });
+
+    return `User ${deleted.user_email} successfully logged out`;
   }
 
   public static async checkActivation(data: ICheckActivationData): Promise<boolean> {
