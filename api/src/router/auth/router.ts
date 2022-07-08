@@ -1,7 +1,7 @@
 import { Request, Response, Router } from "express";
 import { body, validationResult } from "express-validator";
 import { ApplicationError, HTTPStatus } from "../../utils/etc";
-import { IAuthReq, JwtTokenPair } from "./";
+import { IAuthReq, ICheckActivationReq, JwtTokenPair } from "./";
 import { User } from "../../database/";
 import { AuthService } from "../../service/auth/";
 
@@ -25,6 +25,7 @@ export class AuthRouter {
     this.router.post(`${this.baseUrl}/login`, this.loginIntoAccount);
     this.router.get(`${this.baseUrl}/activate/:aid`, this.activateAccount);
     this.router.post(`${this.baseUrl}/logout`, this.logOut);
+    this.router.post(`${this.baseUrl}/check/activation`, this.checkActivation);
   }
 
   private async activateAccount(req: Request, res: Response): Promise<void> {
@@ -82,11 +83,24 @@ export class AuthRouter {
 
   private async logOut(req: Request, res: Response) {
     try {
-      const reponse: void = await AuthService.logOut(req.body as User["email"]);
+      await AuthService.logOut(req.body as User["email"]);
   
       res.status(HTTPStatus.SUCCESS)
         .clearCookie("RETOKEN")
         .json(`User ${req.body} successfully logged out`);
+    } catch(err: any|ApplicationError) {
+      console.error(err);
+      res.status(err.status)
+        .json(err.message);
+    }
+  }
+
+  private async checkActivation(req: Request, res: Response) {
+    try {
+      const isActivated: boolean = await AuthService.checkActivation(req.body as ICheckActivationReq);
+
+      res.status(HTTPStatus.SUCCESS)
+        .json(isActivated)
     } catch(err: any|ApplicationError) {
       console.error(err);
       res.status(err.status)

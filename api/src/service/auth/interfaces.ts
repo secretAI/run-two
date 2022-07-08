@@ -8,6 +8,10 @@ export type JwtTokenPair = {
   refresh: string;
 }
 
+export interface ICheckActivationData {
+  email: string;
+}
+
 export interface IJwtPayload {
   email?: string;
   dto?: {

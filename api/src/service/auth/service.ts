@@ -4,7 +4,7 @@ import * as uuid from "uuid";
 import { User, UserDto, UserInstance, RefreshTokenInstance, Database } from "../../database/";
 import { getDotEnv } from "../../utils/env-var";
 import { ApplicationError, HTTPStatus } from "../../utils/etc";
-import { IAuthData, IJwtPayload, IValidateTokenData, JwtTokenPair } from "./";
+import { IAuthData, ICheckActivationData, IJwtPayload, IValidateTokenData, JwtTokenPair } from "./";
 import { MailService } from "../mail/";
 
 export class AuthService {
@@ -21,10 +21,10 @@ export class AuthService {
       user: getDotEnv("smtp_address"),
       pass: getDotEnv("smtp_pass")
     });
-    await mailer.sendActivationMail({
-      to: userData.email,
-      aid
-    });
+    // await mailer.sendActivationMail({
+    //   to: userData.email,
+    //   aid
+    // }); /* uncomment */
     const user: User = await UserInstance.createUser({
       email: userData.email,
       password: _password,
@@ -88,22 +88,31 @@ export class AuthService {
     `))[0];
     if(!user) 
       throw new ApplicationError(HTTPStatus.NOT_FOUND, `User with ActivationID ${aid} not found`);
-    const activated = await Database.createQuery(`
+    const activated: User["activated"] = (await Database.createQuery(`
       UPDATE users
       SET activated = true 
       WHERE email = '${user.email}'
-      RETURNING *;
-    `);
+      RETURNING activated;
+    `))[0];
     if(!activated) 
       throw new ApplicationError(HTTPStatus.INTERNAL, "Error during account activation");
 
     return `Account ${user.email} has been activated`;
   }
 
-  public static async logOut(email: string) {
+  public static async logOut(reToken: string) {
     await RefreshTokenInstance.deleteToken({
-      param: "user_email",
-      value: email
+      param: "token",
+      value: reToken
     });
+  }
+
+  public static async checkActivation(data: ICheckActivationData): Promise<boolean> {
+    const user: User = (await Database.createQuery(`
+      SELECT * FROM users
+      WHERE email = '${data.email}';
+    `))[0];
+
+    return user.activated;
   }
 }

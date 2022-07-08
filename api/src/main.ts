@@ -14,7 +14,9 @@ const app = new App({
   baseUrl: "/api",
   middlewares: [
     bodyParser.urlencoded({ extended: true }),
-    bodyParser.json(),
+    bodyParser.json({
+      limit: "1mb"
+    }),
     cookieParser(),
     cors({
       origin: getDotEnv("client_url"),
