@@ -14,7 +14,7 @@ describe("Auth Test", () => {
   it("Should create a new User", async () => {
     const user: User = await AuthService.createNewAccount(testAcc);    
     await AuthService.activateAccount(user.aid);
-  
+
     expect(user).toBeTruthy();
     expect(user.password).not.toBe(testAcc.password); 
     /* Password in db is encrypted */
@@ -41,15 +41,22 @@ describe("Auth Test", () => {
     });
   });
 
+  it("Should return activation status",async () => {
+    const status: boolean = await AuthService.checkActivation({
+      email: testAcc.email
+    });
+
+    expect(status).toBe(true);
+  });
+
   it("Should log out (Delete token from Database)", async () => {
     const reToken: RefreshToken = await AuthService.getRefreshTokenByEmail(testAcc.email);
-    const loggedOut: string = await AuthService.logOut(reToken.token);
-        
+    const statusMessage: string = await AuthService.logOut({
+      reToken: reToken.token
+    }); /* Logout then check that token is gone */
     const doesTokenExist: boolean = !!(await AuthService.getRefreshTokenByEmail(testAcc.email));
     
-    expect(loggedOut).toBe(`User ${testAcc.email} successfully logged out`);
+    expect(statusMessage).toBe(`User successfully logged out`);
     expect(doesTokenExist).toBe(false);
-
-
-  })
+  });
 });

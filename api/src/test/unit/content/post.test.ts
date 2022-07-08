@@ -13,6 +13,11 @@ describe("Post service Test", () => {
 
   it("Should create a new post by existing user", async () => {
     await AuthService.createNewAccount(testAcc);
+    await Database.createQuery(`
+      UPDATE users
+      SET activated = true
+      WHERE email = '${testAcc.email}';
+    `); /* Activate an account to be able to post */ 
     const post: Post = await ContentService.createNewPost({
       user_email: testAcc.email,
       title: "title",
