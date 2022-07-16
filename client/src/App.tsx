@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import Activation from './components/Activation/Activation';
 import Auth from './components/Auth/Auth';
@@ -13,7 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<MainPage/>}/>
         <Route path="/activation" element={<Activation/>}/>
-        <Route path="/gateaway" element={<Auth/>}/>
+        <Route path="/getstarted" element={<Auth/>}/>
         <Route path="/signup" element={<SignUp/>}/>
         <Route path="/login" element={<Login/>}/>
       </Routes>

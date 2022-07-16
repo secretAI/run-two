@@ -1,20 +1,26 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Form from "../components/Form/Form";
+import { Post } from "../components/Wall/interfaces";
+import Item from "../components/Wall/Item";
 
-function MainPage() {
+const MainPage = () => {
+  const posts: Post[] = [];
+  const redirect = useNavigate();
+
+  useEffect(() => {
+    if(!isLoggedIn()) 
+      redirect("/getstarted");
+  });
+
   function isLoggedIn() {
     return !!localStorage.getItem("SSN");
   }
-  const redirect = useNavigate();
-  useEffect(() => {
-    if(!isLoggedIn()) 
-      redirect("/gateaway");
-  });
 
   return(
     <div id="main">
       <Form/>
+      <Item post={posts[0]}/>
     </div>
   )
 }

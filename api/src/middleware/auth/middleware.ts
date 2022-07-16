@@ -9,6 +9,8 @@ import { RefreshTokenInstance } from "../../database";
 export async function authMiddleware(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const authHeader = req.headers.authorization;
+    console.log(authHeader);
+    
     switch(!!authHeader) {
       case true:
         const accessToken: JwtTokenPair["access"] = authHeader.split(" ")[1];
@@ -21,7 +23,7 @@ export async function authMiddleware(req: Request, res: Response, next: NextFunc
         
         req.app.locals.accToken = validation;
       case false: 
-        const refreshToken: JwtTokenPair["refresh"] = req.cookies["reToken"];
+        const refreshToken: JwtTokenPair["refresh"] = req.cookies["RETOKEN"];
         const _validation: string|jwt.JwtPayload = AuthService.validateToken({
           token: refreshToken,
           secret: getDotEnv("jwt_secret_refresh")

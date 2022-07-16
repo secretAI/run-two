@@ -16,8 +16,7 @@ function Login() {
       if(session) {
         localStorage.setItem("SSN", session.data.access);
         localStorage.setItem("REF", session.data.refresh);
-        redirect("/");
-        window.location.reload();
+        redirect("/");  
       }
     }
     catch(error: any) {

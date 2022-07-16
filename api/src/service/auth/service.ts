@@ -87,6 +87,8 @@ export class AuthService {
     `))[0];
     if(!user) 
       throw new ApplicationError(HTTPStatus.NOT_FOUND, `User with ActivationID ${aid} not found`);
+    if(user.activated)
+      throw new ApplicationError(HTTPStatus.BAD_REQUEST, "Link has expired");
     const activated: User["activated"] = (await Database.createQuery(`
       UPDATE users
       SET activated = true 
